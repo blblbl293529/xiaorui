@@ -1,0 +1,26 @@
+{
+  "name": "小睿",
+  "short_name": "小睿",
+  "description": "小睿 - 天气提醒、姨妈期记录与每日歌曲推荐",
+  "lang": "zh-CN",
+  "start_url": "./index.html",
+  "scope": "./",
+  "display": "standalone",
+  "orientation": "portrait",
+  "background_color": "#CFEAFB",
+  "theme_color": "#BFE3F8",
+  "icons": [
+    {
+      "src": "icon-1024.png",
+      "sizes": "1024x1024",
+      "type": "image/png",
+      "purpose": "any"
+    },
+    {
+      "src": "icon-1024.png",
+      "sizes": "1024x1024",
+      "type": "image/png",
+      "purpose": "maskable"
+    }
+  ]
+}

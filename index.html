@@ -1,0 +1,298 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover, user-scalable=no">
+  <title>小睿</title>
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="default">
+  <meta name="apple-mobile-web-app-title" content="小睿">
+  <meta name="theme-color" content="#BFE3F8">
+  <link rel="manifest" href="manifest.webmanifest">
+  <link rel="icon" href="icon-180.png">
+  <link rel="apple-touch-icon" href="icon-180.png">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <div class="cloud cloud-1">☁️</div>
+  <div class="cloud cloud-2">☁️</div>
+
+  <header class="app-header">
+    <div class="mascot">☁️</div>
+    <div>
+      <h1>小睿</h1>
+      <p class="subtitle" id="greeting">你好呀～</p>
+    </div>
+  </header>
+
+  <main>
+    <!-- 首页 -->
+    <section id="page-home" class="page active">
+      <div class="card weather-card">
+        <div class="weather-head">
+          <div class="weather-info">
+            <div class="city-line">
+              <span class="city" id="city-name">--</span>
+              <button id="btn-refresh-weather" class="icon-btn" title="刷新">🔄</button>
+            </div>
+            <div class="temp" id="temp-now">--°</div>
+            <div class="desc" id="weather-desc">--</div>
+          </div>
+          <div class="weather-emoji" id="weather-emoji">☁️</div>
+        </div>
+        <div class="weather-extra" id="weather-extra">--</div>
+        <div class="reminder-box" id="weather-reminder">--</div>
+        <details class="city-picker">
+          <summary>📍 切换城市</summary>
+          <div class="city-search">
+            <input type="text" id="city-input" placeholder="输入城市名，如：上海" enterkeyhint="search">
+            <button id="btn-search-city" class="primary-btn small">搜索</button>
+          </div>
+          <div class="city-results" id="city-results"></div>
+          <button id="btn-locate" class="ghost-btn">📍 使用我的定位</button>
+        </details>
+      </div>
+
+      <div class="card mini-card" id="period-summary-card">
+        <div class="mini-emoji">🌸</div>
+        <div class="mini-body">
+          <div class="mini-title">姨妈助手</div>
+          <div class="mini-text" id="period-summary">加载中…</div>
+        </div>
+        <button class="mini-arrow" data-goto="period">›</button>
+      </div>
+
+      <div class="card mini-card" id="song-summary-card">
+        <div class="mini-emoji">🎵</div>
+        <div class="mini-body">
+          <div class="mini-title">今日推荐</div>
+          <div class="mini-text" id="song-summary">加载中…</div>
+        </div>
+        <button class="mini-arrow" data-goto="music">›</button>
+      </div>
+    </section>
+
+    <!-- 姨妈页 -->
+    <section id="page-period" class="page">
+      <div class="card">
+        <div class="cal-head">
+          <button id="cal-prev" class="cal-nav">‹</button>
+          <div class="cal-title" id="cal-title">--</div>
+          <button id="cal-next" class="cal-nav">›</button>
+        </div>
+        <div class="cal-grid weekdays">
+          <span>日</span><span>一</span><span>二</span><span>三</span><span>四</span><span>五</span><span>六</span>
+        </div>
+        <div class="cal-grid" id="cal-grid"></div>
+        <p class="hint">点击日期标记 / 取消姨妈期</p>
+        <div class="quick-row">
+          <button id="btn-period-came" class="primary-btn">🌸 姨妈来了</button>
+          <button id="btn-period-went" class="ghost-btn">🌿 姨妈走了</button>
+        </div>
+      </div>
+      <div class="card" id="period-stats">
+        <div class="stat-line"><span class="stat-label">📅 最近一次开始</span><span class="stat-value" id="stat-last">--</span></div>
+        <div class="stat-line"><span class="stat-label">🔄 平均周期</span><span class="stat-value" id="stat-cycle">--</span></div>
+        <div class="stat-line"><span class="stat-label">⏳ 平均持续</span><span class="stat-value" id="stat-len">--</span></div>
+        <div class="stat-line"><span class="stat-label">🔮 下次预测</span><span class="stat-value" id="stat-next">--</span></div>
+      </div>
+    </section>
+
+    <!-- 健康页 -->
+    <section id="page-fitness" class="page">
+      <div class="card">
+        <div class="section-title">📋 身体数据</div>
+        <div class="form-grid">
+          <label class="field">身高（cm）<input type="number" id="f-height" inputmode="decimal" placeholder="165"></label>
+          <label class="field">体重（kg）<input type="number" id="f-weight" inputmode="decimal" placeholder="55"></label>
+          <label class="field">目标体重（kg）<input type="number" id="f-target" inputmode="decimal" placeholder="50"></label>
+          <label class="field">年龄<input type="number" id="f-age" placeholder="25"></label>
+        </div>
+        <div class="gender-row">
+          <span class="row-label">性别</span>
+          <button class="pill active" data-gender="f">女</button>
+          <button class="pill" data-gender="m">男</button>
+        </div>
+        <div class="gender-row">
+          <span class="row-label">活动量</span>
+          <button class="pill" data-act="1.2">久坐</button>
+          <button class="pill active" data-act="1.375">轻度</button>
+          <button class="pill" data-act="1.55">中度</button>
+          <button class="pill" data-act="1.725">高强度</button>
+        </div>
+        <button id="btn-save-fitness" class="primary-btn full">保存并计算</button>
+      </div>
+
+      <div class="card" id="fitness-results" hidden>
+        <div class="section-title">🔥 每日热量</div>
+        <div class="kcal-big"><span id="f-intake">--</span><small> 千卡 · 建议摄入</small></div>
+        <div class="stat-grid">
+          <div class="stat-cell"><div class="v" id="f-bmr">--</div><div class="k">基础代谢</div></div>
+          <div class="stat-cell"><div class="v" id="f-tdee">--</div><div class="k">每日总消耗</div></div>
+          <div class="stat-cell"><div class="v" id="f-deficit">--</div><div class="k">热量缺口</div></div>
+          <div class="stat-cell"><div class="v" id="f-eta">--</div><div class="k">预计达成</div></div>
+        </div>
+      </div>
+
+      <div class="card" id="daily-log-card">
+        <div class="section-title">🍽️ 今日记录<span class="today-label" id="daily-date"></span></div>
+        <div class="daily-summary" id="daily-summary"></div>
+
+        <div class="sub-title">🍚 饮食</div>
+        <div class="row-input">
+          <input type="text" id="food-input" placeholder="搜索：馒头 / 奶茶 / 米饭…" enterkeyhint="search">
+          <button id="btn-search-food" class="primary-btn small">搜索</button>
+        </div>
+        <div class="food-results" id="food-results"></div>
+        <div class="row-input">
+          <input type="text" id="mfood-name" placeholder="食物名">
+          <input type="number" id="mfood-kcal" inputmode="numeric" placeholder="千卡">
+          <button id="btn-add-mfood" class="primary-btn small">添加</button>
+        </div>
+        <div class="log-list" id="food-list"></div>
+
+        <div class="sub-title">🏃 运动</div>
+        <div class="row-input">
+          <select id="sport-select"></select>
+          <input type="number" id="sport-minutes" inputmode="numeric" placeholder="分钟">
+          <button id="btn-add-sport" class="primary-btn small">添加</button>
+        </div>
+        <div class="chips-row">
+          <button class="chip" data-mins="30">30分钟</button>
+          <button class="chip" data-mins="60">1小时</button>
+          <button class="chip" data-mins="120">2小时</button>
+        </div>
+        <div class="row-input">
+          <input type="text" id="msport-name" placeholder="运动名">
+          <input type="number" id="msport-kcal" inputmode="numeric" placeholder="千卡">
+          <button id="btn-add-msport" class="primary-btn small">添加</button>
+        </div>
+        <div class="log-list" id="sport-list"></div>
+
+        <div class="gap-box" id="gap-box"></div>
+      </div>
+
+      <div class="card" id="exercise-card" hidden>
+        <div class="section-title">🏃 今日锻炼建议</div>
+        <div class="ex-hint" id="ex-hint"></div>
+        <div class="exercise-list" id="exercise-list"></div>
+      </div>
+
+      <div class="card" id="recipe-card" hidden>
+        <div class="section-title">🍱 今日食谱<button id="btn-shuffle-recipe" class="ghost-btn small-btn">换一组</button></div>
+        <div class="recipe-list" id="recipe-list"></div>
+        <div class="recipe-total" id="recipe-total"></div>
+      </div>
+
+      <div class="card" id="weight-log-card" hidden>
+        <div class="section-title">📈 体重记录</div>
+        <div class="weight-chart" id="weight-chart"></div>
+      </div>
+    </section>
+
+    <!-- 记账页 -->
+    <section id="page-money" class="page">
+      <div class="card">
+        <div class="section-title">💰 我的钱包</div>
+        <div class="balance-box">
+          <div class="b-label">当前余额</div>
+          <div class="b-amount" id="m-balance">--</div>
+        </div>
+        <div class="row-input" style="margin-top:10px">
+          <input type="number" id="m-balance-input" inputmode="decimal" placeholder="输入你手上还剩多少钱">
+          <button id="btn-set-balance" class="primary-btn small">更新余额</button>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="section-title">✏️ 记一笔支出</div>
+        <div class="row-input">
+          <input type="number" id="m-amt" inputmode="decimal" placeholder="金额（元）">
+          <input type="text" id="m-note" placeholder="备注，如：奶茶" enterkeyhint="done">
+          <button id="btn-add-spend" class="primary-btn small">记一笔</button>
+        </div>
+        <div class="chips-row" id="m-cats"></div>
+        <p class="hint">写备注会自动分类，也可以手动点上面的分类</p>
+        <div class="log-list" id="m-log"></div>
+      </div>
+
+      <div class="card">
+        <div class="section-title">🎯 本月存钱计划</div>
+        <div class="row-input">
+          <input type="number" id="m-target" inputmode="decimal" placeholder="这个月想存下（元）">
+          <button id="btn-set-target" class="primary-btn small">保存目标</button>
+        </div>
+        <div class="plan-box" id="m-plan"></div>
+      </div>
+
+      <div class="card">
+        <div class="section-title">📊 钱都去哪儿了</div>
+        <div class="cat-chart" id="m-chart"></div>
+      </div>
+    </section>
+
+    <!-- 发现页 -->
+    <section id="page-music" class="page">
+      <div class="card song-card">
+        <div class="song-label">今日份小睿推荐</div>
+        <div class="song-cover" id="song-cover">🎵</div>
+        <div class="song-title" id="song-title">--</div>
+        <div class="song-artist" id="song-artist">--</div>
+        <button id="btn-play-song" class="primary-btn">♪ 去 QQ 音乐听</button>
+        <div class="song-hint">没装 QQ 音乐会自动打开网页版听哦～</div>
+        <button id="btn-next-song" class="ghost-btn">🎲 换一首</button>
+      </div>
+
+      <div class="card discover-card">
+        <div class="section-title">🎬 今日视频</div>
+        <div class="disc-body" id="video-body"></div>
+      </div>
+
+      <div class="card discover-card">
+        <div class="section-title">🖼️ 今日美图</div>
+        <div class="disc-img-wrap">
+          <img id="photo-img" alt="今日美图" loading="lazy">
+          <div class="photo-cap" id="photo-cap"></div>
+        </div>
+      </div>
+
+      <div class="card discover-card">
+        <div class="section-title">📖 今日一文</div>
+        <div class="article-text" id="article-text"></div>
+      </div>
+
+      <div class="card discover-card">
+        <div class="section-title">📰 每日资讯<button id="btn-refresh-news" class="ghost-btn small-btn">刷新</button></div>
+        <div class="news-date" id="news-date"></div>
+        <div class="news-list" id="news-list"></div>
+      </div>
+    </section>
+  </main>
+
+  <nav class="tabbar">
+    <button class="tab active" data-page="home"><span class="tab-icon">🏠</span><span>首页</span></button>
+    <button class="tab" data-page="period"><span class="tab-icon">🌸</span><span>姨妈</span></button>
+    <button class="tab" data-page="fitness"><span class="tab-icon">💪</span><span>健康</span></button>
+    <button class="tab" data-page="money"><span class="tab-icon">💰</span><span>记账</span></button>
+    <button class="tab" data-page="music"><span class="tab-icon">✨</span><span>发现</span></button>
+  </nav>
+
+  <div class="overlay" id="install-guide" hidden>
+    <div class="guide-card">
+      <div class="guide-emoji">📲</div>
+      <div class="guide-title">把小睿装到手机桌面</div>
+      <div class="guide-steps">
+        <div class="g-step"><span class="g-num">1</span><span>点击右上角 <b>···</b> 按钮</span></div>
+        <div class="g-step"><span class="g-num">2</span><span>选择 <b>在浏览器中打开</b>（Safari）</span></div>
+        <div class="g-step"><span class="g-num">3</span><span>点击 Safari 底部的 <b>分享</b> 按钮</span></div>
+        <div class="g-step"><span class="g-num">4</span><span>选择 <b>添加到主屏幕</b></span></div>
+        <div class="g-step"><span class="g-num">5</span><span>点 <b>添加</b>，桌面就有小睿啦 🎉</span></div>
+      </div>
+      <button class="primary-btn full" id="btn-close-guide">知道了</button>
+    </div>
+  </div>
+
+  <script src="app.js"></script>
+</body>
+</html>
