@@ -1,7 +1,7 @@
-/* daily-content.js — 每日内容（B站腿臀/视频/图文），无依赖。渲染统一用 textContent。 */
+/* daily-content.js — 每日内容（抖音搜索入口/图文），无依赖。渲染统一用 textContent。 */
 (() => {
   'use strict';
-  const API = '/api/daily', KEY = 'xiaorui_daily_content_v1', TZ = 'Asia/Shanghai';
+  const API = '/api/daily', KEY = 'xiaorui_daily_content_douyin_v1', TZ = 'Asia/Shanghai';
   const STATIC = document.documentElement?.dataset.dailySource === 'static';
   const TRAIN = [
     { key: 'legs', label: '腿部塑形', kw: '腿部塑形 健身' },
@@ -31,7 +31,7 @@
     if (!isHttps(href)) return el('span', cls || 'daily-link-disabled', text);
     const a = el('a', cls || 'daily-link', text); a.href = href; a.target = '_blank'; a.rel = 'noopener noreferrer'; return a;
   }
-  function searchUrl(kw) { return 'https://search.bilibili.com/all?keyword=' + encodeURIComponent(kw) + '&order=pubdate'; }
+  function searchUrl(kw) { return 'https://www.douyin.com/search/' + encodeURIComponent(kw); }
   function fmtDate(iso) {
     if (!iso) return '';
     const d = new Date(iso); if (isNaN(d)) return '';
@@ -62,39 +62,27 @@
     card.append(metaLine(item));
     if (opts.cover !== false) card.append(cover(item, item.title));
     if (item.description && opts.desc !== false) card.append(el('p', 'daily-desc', item.description));
-    card.append(link(item.url, opts.cta || '在 B 站打开原文'));
+    card.append(link(item.url, opts.cta || '打开原始来源'));
     return card;
   }
   function messageBox(text, extraNode) {
     const b = el('div', 'daily-msg'); b.append(el('p', null, text || '暂无内容')); if (extraNode) b.append(extraNode); return b;
   }
-  function searchHint(kw) { return link(searchUrl(kw), '去 B 站按最新发布查找', 'daily-search'); }
+  function searchHint(kw) { return link(searchUrl(kw), '前往抖音搜索', 'daily-search'); }
 
   // ---- 区块渲染 ----
   function renderTraining(sec, def) {
     const wrap = el('div', 'daily-section');
     wrap.append(el('h2', 'daily-h2', def.label));
-    if (sec && sec.status === 'fresh' && validItem(sec.item)) {
-      const card = el('article', 'daily-card');
-      card.append(el('h3', 'daily-title', sec.item.title), metaLine(sec.item));
-      card.append(link(sec.item.url, '看视频', 'daily-cta'));
-      const st = el('div', 'daily-state');
-      st.append(el('button', 'workout-done', workoutLabel(def.key, sec.item.id)));
-      st.firstChild.type = 'button';
-      st.firstChild.dataset.vid = sec.item.id; st.firstChild.dataset.kw = def.key;
-      st.firstChild.dataset.day = shDate();
-      st.firstChild.setAttribute('aria-pressed', String(isDone(def.key, sec.item.id)));
-      st.firstChild.addEventListener('click', onToggleDone);
-      card.append(st); wrap.append(card);
-    } else if (sec && sec.status === 'stale') {
-      const note = el('p', 'daily-note', '内容未能刷新，显示 ' + (sec.selectedDate || '旧') + ' 的内容');
-      wrap.append(note);
-      if (validItem(sec.item)) { const c = renderItem(sec.item, { cta: '看视频' }); c.classList.add('daily-stale'); wrap.append(c); }
-      else wrap.append(messageBox(sec.message || '训练视频暂不可用', searchHint(def.kw)));
-    } else {
-      const msg = sec && (sec.status === 'error' ? '训练视频加载失败' : '今日暂无训练推荐');
-      wrap.append(messageBox(sec && sec.message ? msg + '：' + sec.message : msg, searchHint(def.kw)));
-    }
+    const card = el('article', 'daily-card');
+    card.append(el('p', 'daily-desc', '在抖音选择适合自己的跟练视频。'));
+    card.append(link(searchUrl(def.kw), '去抖音看' + def.label, 'daily-cta'));
+    const button = el('button', 'workout-done', workoutLabel(def.key, 'douyin-search'));
+    button.type = 'button'; button.dataset.vid = 'douyin-search'; button.dataset.kw = def.key;
+    button.dataset.day = shDate();
+    button.setAttribute('aria-pressed', String(isDone(def.key, 'douyin-search')));
+    button.addEventListener('click', onToggleDone);
+    card.append(button); wrap.append(card);
     return wrap;
   }
   function renderMedia(id, sec, kw, title, cta) {
@@ -108,8 +96,12 @@
       else host.append(messageBox(sec.message || '暂时无法获取内容', searchHint(kw)));
     } else host.append(messageBox(sec && sec.message ? sec.message : '暂时无法获取内容', searchHint(kw)));
   }
-  function renderVideo(sec) {
-    renderMedia('video-body', sec, '自然 人文 纪录片', '视频精选', '去观看');
+  function renderVideo() {
+    const host = $('video-body'); if (!host) return;
+    host.textContent = ''; host.className = 'content-block';
+    host.append(el('h2', 'daily-h2', '抖音视频'));
+    host.append(el('p', 'daily-desc', '前往抖音搜索自然、人文与纪录片视频。当前为搜索入口，暂未接入每日自动推荐。'));
+    host.append(link(searchUrl('自然 人文 纪录片'), '去抖音看视频', 'daily-cta'));
   }
   function renderPhoto(sec) {
     const host = $('photo-body'); if (!host) return;
@@ -169,17 +161,16 @@
     const ws = $('workout-status'); if (ws) ws.textContent = '侧重腿臀力量与柔韧性，不承诺局部减脂。按自身情况选择强度。';
     if (opts.staleDate) setStatus('未能刷新，显示 ' + opts.staleDate + ' 的缓存内容', 'stale');
     else if (payload) {
-      const discovered = ['video', 'photo', 'article'].filter(k => sec[k]?.status === 'fresh').length;
-      const workouts = TRAIN.filter(t => sec[t.key]?.status === 'fresh').length;
+      const discovered = ['photo', 'article'].filter(k => sec[k]?.status === 'fresh').length;
       const checked = new Date(payload.refreshedAt).toLocaleString('zh-CN', { timeZone: TZ });
-      setStatus((STATIC ? '云端更新：' : '最近检查：') + checked + ' · 发现 ' + discovered + '/3，跟练 ' + workouts + '/3' +
-        (discovered + workouts < 6 ? '，其余来源待更新' : ''), discovered + workouts < 6 ? 'partial' : 'ok');
+      setStatus((STATIC ? '云端更新：' : '最近检查：') + checked + ' · 图文 ' + discovered + '/2 · 视频为抖音搜索入口' +
+        (discovered < 2 ? '，部分图文待更新' : ''), discovered < 2 ? 'partial' : 'ok');
     }
   }
   function renderEmpty(msg) {
     const h = $('workout-videos');
     if (h) { h.textContent = ''; TRAIN.forEach(t => h.append(renderTraining(null, t))); }
-    renderMedia('video-body', null, '自然 人文 纪录片', '视频精选', '去观看');
+    renderVideo();
     if ($('photo-body')) { $('photo-body').textContent = ''; $('photo-body').append(messageBox('暂无图片')); }
     if ($('article-text')) { $('article-text').textContent = ''; $('article-text').append(messageBox('暂无文章')); }
     if ($('workout-status')) $('workout-status').textContent = '侧重腿臀力量与柔韧性，不承诺局部减脂。按自身情况选择强度。';
@@ -220,7 +211,7 @@
     try {
       const data = await fetchDaily(manual ? 'POST' : 'GET');
       writeCache(data); renderAll(data); lastFgDate = data.date;
-      retrySoon = Object.values(data.sections).some(sec => sec.status !== 'fresh');
+      retrySoon = ['photo', 'article'].some(key => data.sections[key].status !== 'fresh');
     } catch (e) {
       retrySoon = true;
       const c = readCache(); const msg = errMsg(e);
@@ -248,6 +239,7 @@
     }
     const c = readCache();
     if (c) renderAll(c, { staleDate: c.date });
+    else renderEmpty('正在加载每日图文…');
     lastFgDate = shDate();
     refresh(false);
     document.addEventListener('visibilitychange', onVisibility);

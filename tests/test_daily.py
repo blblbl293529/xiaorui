@@ -11,7 +11,7 @@ import urllib.request
 from http.server import ThreadingHTTPServer
 
 sys.path.insert(0, str(Path(__file__).resolve().parents[1]))
-from daily_service import DailyService, CHANNELS, canonical_id, day, photos, articles
+from daily_service import DailyService, CHANNELS, canonical_id, day, photos, articles, fetch_channel
 from server import make_handler
 from publish_daily import restore_history, save_history, build_site, ASSETS
 
@@ -75,6 +75,25 @@ class DailyTests(unittest.TestCase):
         self.assertEqual({p.name for p in output.iterdir()}, set(ASSETS) | {"daily.json", ".nojekyll"})
         self.assertIn('data-daily-source="static"', (output / "index.html").read_text(encoding="utf-8"))
         self.assertEqual(json.loads((output / "daily.json").read_text(encoding="utf-8")), payload)
+
+    def test_douyin_entries_do_not_fetch_or_reuse_old_videos(self):
+        self.service.get()
+        history = save_history(self.service)
+        with tempfile.TemporaryDirectory() as directory:
+            service = DailyService(directory, clock=lambda: self.clock)
+            restore_history(service, history)
+            with patch("daily_service.photos", return_value=[]), patch("daily_service.articles", return_value=[]), patch("daily_service.request_bytes") as network:
+                payload = service.get()
+                for channel in ("legs", "glutes", "stretch", "video"):
+                    section = payload["sections"][channel]
+                    self.assertEqual(section["mode"], "external_search")
+                    self.assertEqual(section["source"], "抖音")
+                    self.assertIsNone(section["item"])
+                    self.assertIsNone(section["selectedDate"])
+                    self.assertTrue(section["searchUrl"].startswith("https://www.douyin.com/search/"))
+                    self.assertIsNone(fetch_channel(channel))
+                network.assert_not_called()
+            self.assertFalse((Path(directory) / "errors.jsonl").exists())
 
     def test_source_error_preserves_original_date_and_logs_status(self):
         first = self.service.get()

@@ -18,10 +18,10 @@ import xml.etree.ElementTree as ET
 SHANGHAI = timezone(timedelta(hours=8))
 CHANNELS = ("legs", "glutes", "stretch", "video", "photo", "article")
 QUERIES = {
-    "legs": "瘦腿 跟练",
+    "legs": "腿部塑形 跟练",
     "glutes": "提臀 跟练",
     "stretch": "拉伸 跟练",
-    "video": "纪录片",
+    "video": "自然 人文 纪录片",
 }
 MAX_AGES = {"legs": 30, "glutes": 30, "stretch": 30, "video": 14, "photo": 8, "article": 7}
 
@@ -110,34 +110,6 @@ def request_bytes(url, limit=4_000_000):
         return data
 
 
-def bilibili(channel):
-    query = urllib.parse.urlencode({
-        "search_type": "video", "keyword": QUERIES[channel], "order": "pubdate", "page": 1,
-    })
-    data = json.loads(request_bytes("https://api.bilibili.com/x/web-interface/search/type?" + query))
-    if data.get("code") != 0:
-        raise ValueError("bilibili-source-unavailable")
-    results = data.get("data", {}).get("result")
-    if not isinstance(results, list):
-        raise ValueError("bilibili-invalid-response")
-    items = []
-    for row in results:
-        bvid = row.get("bvid", "")
-        if not re.fullmatch(r"BV[A-Za-z0-9]+", bvid):
-            continue
-        published = timestamp(row.get("pubdate"))
-        if not published:
-            continue
-        items.append({
-            "id": "bilibili:" + bvid, "title": plain(row.get("title")),
-            "url": "https://www.bilibili.com/video/" + bvid,
-            "source": "哔哩哔哩 · " + plain(row.get("author"), 80),
-            "publishedAt": published.isoformat(), "description": plain(row.get("description")),
-            "imageUrl": https_url(row.get("pic")), "duration": plain(row.get("duration"), 20),
-        })
-    return items
-
-
 def photos():
     data = json.loads(request_bytes(
         "https://cn.bing.com/HPImageArchive.aspx?format=js&idx=0&n=8&mkt=zh-CN"))
@@ -187,80 +159,15 @@ def articles():
     return items
 
 
-class MetaTags(HTMLParser):
-    def __init__(self):
-        super().__init__()
-        self.meta = {}
-
-    def handle_starttag(self, tag, attrs):
-        attrs = dict(attrs)
-        if tag == "meta" and attrs.get("property"):
-            self.meta[attrs["property"]] = attrs.get("content", "")
-
-
-def ted_videos():
-    """TED's current feed also contains podcasts: verify a real talk video page."""
-    raw = request_bytes("https://www.ted.com/talks/rss", limit=12_000_000)
-    if b"<!DOCTYPE" in raw.upper() or b"<!ENTITY" in raw.upper():
-        raise ValueError("unsupported-feed-dtd")
-    root = ET.fromstring(raw)
-    candidates = []
-    for row in root.findall("./channel/item"):
-        url = row.findtext("link", "")
-        parsed = urllib.parse.urlsplit(url)
-        published = timestamp(row.findtext("pubDate"))
-        if (parsed.hostname not in ("go.ted.com", "www.ted.com", "ted.com")
-                or not published or not timedelta(0) <= now() - published <= timedelta(days=14)):
-            continue
-        url = urllib.parse.urlunsplit(parsed._replace(scheme="https"))
-        candidates.append((url, plain(row.findtext("title")), published))
-        if len(candidates) == 4:
-            break
-
-    def verify(candidate):
-        url, title, published = candidate
-        req = urllib.request.Request(url, headers={"User-Agent": "XiaoruiDaily/1.0"})
-        with urllib.request.urlopen(req, timeout=10) as response:
-            target = https_url(response.url)
-            parsed = urllib.parse.urlsplit(target)
-            if parsed.hostname not in ("www.ted.com", "ted.com") or not parsed.path.startswith("/talks/"):
-                return None
-            page = response.read(2_000_001)
-            if len(page) > 2_000_000:
-                return None
-        meta = MetaTags()
-        meta.feed(page.decode("utf-8", errors="replace"))
-        if not https_url(meta.meta.get("og:video:secure_url") or meta.meta.get("og:video:url")):
-            return None
-        return {"id": target, "title": title, "url": target,
-                "source": "TED · 英文演讲", "publishedAt": published.isoformat(),
-                "dateLabel": "来源更新于", "imageUrl": https_url(meta.meta.get("og:image")),
-                "description": "TED 英文演讲，前往原站观看完整视频。"}
-
-    items = []
-    with ThreadPoolExecutor(max_workers=4) as pool:
-        futures = [pool.submit(verify, candidate) for candidate in candidates]
-        for future in futures:
-            try:
-                item = future.result()
-                if item:
-                    items.append(item)
-            except (OSError, ValueError):
-                continue
-    if not items:
-        raise ValueError("no-verified-current-ted-video")
-    return items
-
-
 def fetch_channel(channel):
     if channel == "photo":
         return photos()
     if channel == "article":
         return articles()
-    if channel == "video":
-        # Use TED's current verified video pages; the old video podcast feed is stale.
-        return ted_videos()
-    return bilibili(channel)
+    if channel in ("legs", "glutes", "stretch", "video"):
+        # Search links are not daily recommendations. No unauthorised video fetch.
+        return None
+    raise ValueError("unknown-content-channel")
 
 
 class DailyService:
@@ -300,7 +207,8 @@ class DailyService:
             current = self.clock()
             today = day(current)
             if self.snapshot and self.snapshot["date"] == today:
-                failed = any(v["status"] != "fresh" for v in self.snapshot["sections"].values())
+                failed = any(v["status"] != "fresh" and v.get("mode") != "external_search"
+                             for v in self.snapshot["sections"].values())
                 ttl = 900 if failed else 14400
                 # Browser retries cannot hammer providers; allow explicit refresh once per minute.
                 if (current - self.checked_at).total_seconds() < (60 if refresh else ttl):
@@ -318,6 +226,14 @@ class DailyService:
             with self.connect() as db:
                 for channel in CHANNELS:
                     candidates, error = results[channel]
+                    if candidates is None and error is None:
+                        sections[channel] = {
+                            "status": "empty", "item": None, "selectedDate": None,
+                            "mode": "external_search", "source": "抖音",
+                            "searchUrl": "https://www.douyin.com/search/" + urllib.parse.quote(QUERIES[channel], safe=""),
+                            "message": "抖音搜索入口，暂未接入自动每日视频推荐。",
+                        }
+                        continue
                     previous = db.execute(
                         "SELECT day,item FROM selections WHERE channel=? ORDER BY day DESC LIMIT 1",
                         (channel,)).fetchone()

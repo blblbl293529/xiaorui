@@ -69,8 +69,11 @@ async function main(staticSite = false) {
   nextPayload = payload(true);
   now += 60000; tick(); await flush();
   assert.equal(requests.length, 2, 'same-day failures must recover without manual refresh');
-  assert.match(hosts.get('daily-content-status').textContent, /跟练 3\/3/);
-  assert.equal(hosts.get('workout-videos').children[0].children[1].children[0].textContent, 'recovered legs');
+  assert.match(hosts.get('daily-content-status').textContent, /图文 2\/2/);
+  const workoutCard = hosts.get('workout-videos').children[0].children[1];
+  assert.equal(new URL(workoutCard.children[1].href).hostname, 'www.douyin.com');
+  assert.equal(workoutCard.children[2].dataset.vid, 'douyin-search');
+  assert.ok(!JSON.stringify(workoutCard).includes('recovered legs'), 'old source payloads cannot restore old videos');
   now += 120000; tick(); await flush();
   assert.equal(requests.length, 2, 'healthy results use a longer interval');
   now += 780000; tick(); await flush();
