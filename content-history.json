@@ -26,6 +26,14 @@
       "2026-10-20"
     ],
     [
+      "bing:OHR.VietnamBridge",
+      "2026-10-21"
+    ],
+    [
+      "https://sspai.com/post/115475",
+      "2026-10-21"
+    ],
+    [
       "https://sspai.com/post/116661",
       "2026-10-20"
     ],
@@ -52,6 +60,19 @@
         "url": "https://sspai.com/prime/story/inside-release-notes-261020",
         "source": "少数派",
         "publishedAt": "2026-10-20T18:01:54+08:00",
+        "description": "来自少数派的最新文章，点击前往来源阅读全文。",
+        "imageUrl": ""
+      }
+    },
+    {
+      "channel": "article",
+      "day": "2026-10-21",
+      "item": {
+        "id": "https://sspai.com/post/115475",
+        "title": "TDS REVIEW｜vivo Buds Clip 耳夹式无线耳机体验",
+        "url": "https://sspai.com/post/115475",
+        "source": "少数派",
+        "publishedAt": "2026-10-20T17:30:00+08:00",
         "description": "来自少数派的最新文章，点击前往来源阅读全文。",
         "imageUrl": ""
       }
@@ -95,6 +116,19 @@
         "source": "必应每日壁纸",
         "publishedAt": "2026-10-19T16:00:00+00:00",
         "description": "褐喉三趾树懒，塔拉曼卡旧港，哥斯达黎加 (© Suzi Eszterhas/Minden Pictures)"
+      }
+    },
+    {
+      "channel": "photo",
+      "day": "2026-10-21",
+      "item": {
+        "id": "bing:OHR.VietnamBridge",
+        "title": "飞掠河面",
+        "url": "https://www.bing.com/search?q=%E8%B6%8A%E5%8D%97%E9%A1%BA%E5%8C%96%E5%B8%82&form=hpcapt&mkt=zh-cn",
+        "imageUrl": "https://cn.bing.com/th?id=OHR.VietnamBridge_ZH-CN6134321119_1920x1080.jpg&rf=LaDigue_1920x1080.jpg&pid=hp",
+        "source": "必应每日壁纸",
+        "publishedAt": "2026-10-20T16:00:00+00:00",
+        "description": "香江上的阮潢桥，顺化，越南 (© VU PHAM VAN/Getty Images)"
       }
     },
     {
