@@ -6,6 +6,10 @@
       "2026-10-20"
     ],
     [
+      "bilibili:BV1AJnP6BEpc",
+      "2026-10-20"
+    ],
+    [
       "bilibili:BV1Gonc61E3c",
       "2026-10-20"
     ],
@@ -22,6 +26,10 @@
       "2026-10-20"
     ],
     [
+      "https://sspai.com/prime/story/inside-release-notes-261020",
+      "2026-10-20"
+    ],
+    [
       "https://www.ted.com/talks/cara_hale_alter_is_your_body_language_working_against_you",
       "2026-10-20"
     ],
@@ -35,13 +43,27 @@
       "channel": "article",
       "day": "2026-10-20",
       "item": {
-        "id": "https://sspai.com/post/116661",
-        "title": "从「空间扩展」到「等比放大」：我如何为 MacBook Pro 搭建双屏桌面",
-        "url": "https://sspai.com/post/116661",
+        "id": "https://sspai.com/prime/story/inside-release-notes-261020",
+        "title": "具透 Plus：Firefox 被「中途喝止」的界面现代化改造；Pixel 不再为 VoLTE 发愁",
+        "url": "https://sspai.com/prime/story/inside-release-notes-261020",
         "source": "少数派",
-        "publishedAt": "2026-10-20T15:07:54+08:00",
+        "publishedAt": "2026-10-20T18:01:54+08:00",
         "description": "来自少数派的最新文章，点击前往来源阅读全文。",
         "imageUrl": ""
+      }
+    },
+    {
+      "channel": "glutes",
+      "day": "2026-10-20",
+      "item": {
+        "id": "bilibili:BV1AJnP6BEpc",
+        "title": "一定要试试这个核心燃脂法，瘦肚子太快了，每天200个，练手臂，练肚子，练肩背， 提臀 瘦腿",
+        "url": "https://www.bilibili.com/video/BV1AJnP6BEpc",
+        "source": "哔哩哔哩 · 小钟古法健身",
+        "publishedAt": "2026-10-20T11:25:59+00:00",
+        "description": "",
+        "imageUrl": "https://i2.hdslb.com/bfs/archive/d6758c51b87b1db8aec8b2e6a5b04d340234d872.jpg",
+        "duration": "0:9"
       }
     },
     {
