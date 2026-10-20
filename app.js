@@ -415,6 +415,7 @@ const SONGS = [
 ];
 
 const COVER_EMOJIS = ['🎵', '🎶', '🎧', '💿', '🎼', '🌙', '🌟', '🎹', '🎤'];
+const LS_HOT = 'xiaorui_hot_songs';
 
 function hashStr(s) {
   let h = 0;
@@ -422,19 +423,66 @@ function hashStr(s) {
   return h;
 }
 
+/* QQ音乐热歌榜（JSONP），当天有效，失败则用内置歌单 */
+function getHotSongs() {
+  try {
+    const data = JSON.parse(localStorage.getItem(LS_HOT) || '{}');
+    if (data.date === dateKey(new Date()) && Array.isArray(data.songs) && data.songs.length) return data.songs;
+  } catch (e) { /* ignore */ }
+  return [];
+}
+
+function loadQQHotSongs(onLoaded) {
+  const cbName = '__xiaoruiHotCb';
+  window[cbName] = (resp) => {
+    try {
+      const list = (resp && resp.songlist) || [];
+      const songs = [];
+      for (const item of list) {
+        const d = item && item.data;
+        if (!d || !d.songname) continue;
+        const singer = Array.isArray(d.singer) && d.singer.length
+          ? d.singer.map((s) => s.name).filter(Boolean).join(' / ')
+          : '';
+        songs.push({ t: d.songname, a: singer || 'QQ音乐热歌' });
+        if (songs.length >= 100) break;
+      }
+      if (songs.length) {
+        localStorage.setItem(LS_HOT, JSON.stringify({ date: dateKey(new Date()), songs }));
+      }
+    } catch (e) { /* ignore */ }
+    cleanup();
+    if (onLoaded) onLoaded();
+  };
+  const cleanup = () => {
+    const s = document.getElementById('qqhot-script');
+    if (s) s.remove();
+    try { delete window[cbName]; } catch (e) { window[cbName] = undefined; }
+  };
+  const script = document.createElement('script');
+  script.id = 'qqhot-script';
+  script.onerror = () => { cleanup(); if (onLoaded) onLoaded(); };
+  script.src = `https://c.y.qq.com/v8/fcg-bin/fcg_v8_toplist_cp.fcg?topid=26&format=jsonp&jsonpCallback=${cbName}&tpl=3&page=detail&type=top&song_begin=0&song_num=100`;
+  document.body.appendChild(script);
+}
+
 function getDailySong() {
+  const hot = getHotSongs();
+  const pool = hot.length ? hot : SONGS;
   const offset = parseInt(localStorage.getItem('xiaorui_song_offset') || '0', 10);
   const dayIndex = Math.floor(Date.now() / 86400000);
-  const idx = ((dayIndex + offset) % SONGS.length + SONGS.length) % SONGS.length;
-  return { song: SONGS[idx], idx };
+  const idx = ((dayIndex + offset) % pool.length + pool.length) % pool.length;
+  return { song: pool[idx], idx, fromHot: hot.length > 0 };
 }
 
 function renderSong() {
-  const { song, idx } = getDailySong();
+  const { song, fromHot } = getDailySong();
   $('#song-title').textContent = song.t;
   $('#song-artist').textContent = song.a;
   $('#song-cover').textContent = COVER_EMOJIS[hashStr(song.t) % COVER_EMOJIS.length];
   $('#song-summary').textContent = `${song.t} - ${song.a}`;
+  const label = document.querySelector('.song-label');
+  if (label) label.textContent = fromHot ? '🔥 QQ音乐热歌榜 · 今日推荐' : '今日份小睿推荐';
 }
 
 /* 尝试唤起 QQ 音乐 App 搜索歌曲；未安装则回退到 QQ 音乐网页版 */
@@ -458,7 +506,9 @@ $('#btn-play-song').addEventListener('click', () => {
 });
 
 $('#btn-next-song').addEventListener('click', () => {
-  const offset = (parseInt(localStorage.getItem('xiaorui_song_offset') || '0', 10) + 1) % SONGS.length;
+  const hot = getHotSongs();
+  const pool = hot.length ? hot : SONGS;
+  const offset = Math.floor(Math.random() * pool.length);
   localStorage.setItem('xiaorui_song_offset', String(offset));
   renderSong();
 });
@@ -1199,120 +1249,7 @@ $('#btn-set-target').addEventListener('click', () => {
 });
 
 /* ============ 每日发现：视频 / 美图 / 一文 / 资讯 ============ */
-const VIDEOS = [
-  { t: '《航拍中国》· 俯瞰大美山河', d: '换个角度看中国，每一帧都是壁纸', k: '航拍中国' },
-  { t: '《蓝色星球》· 深海奇观', d: 'BBC 经典纪录片，安静治愈的海洋世界', k: '蓝色星球 纪录片' },
-  { t: '《我在故宫修文物》', d: '看大国工匠如何让文物活过来', k: '我在故宫修文物' },
-  { t: '《风味人间》· 人间烟火', d: '食物背后的人情与故事', k: '风味人间' },
-  { t: '《如果国宝会说话》', d: '每集5分钟，听国宝讲自己的故事', k: '如果国宝会说话' },
-  { t: '《书简阅中国》', d: '30封古人书信，读懂历史温度', k: '书简阅中国' },
-  { t: '《千古风流人物》', d: '走近李白、苏轼们的真实人生', k: '千古风流人物' },
-  { t: '《但是还有书籍》', d: '关于书和爱书人的温暖故事', k: '但是还有书籍' },
-  { t: '《中国》· 人文纪录片', d: '从春秋到盛唐，中华文明之美', k: '纪录片 中国 人文' },
-  { t: '《地球脉动》· 自然之美', d: '镜头下的生命奇迹，安静又震撼', k: '地球脉动' },
-  { t: '《舌尖上的中国》', d: '经典美食纪录片，重温人间烟火', k: '舌尖上的中国' },
-  { t: '《河西走廊》', d: '一部荡气回肠的丝路史诗', k: '河西走廊 纪录片' },
-  { t: '《大国工匠》', d: '平凡岗位上的极致手艺', k: '大国工匠' },
-  { t: '《宇宙时空之旅》', d: '从原子到星辰，感受宇宙浪漫', k: '宇宙时空之旅' },
-  { t: '《人生一串》', d: '深夜烧烤摊里的人间百态', k: '人生一串' },
-  { t: '《我在岛屿读书》', d: '作家们在海岛聊书与人生', k: '我在岛屿读书' },
-  { t: '《典籍里的中国》', d: '穿越时空，与先贤对话', k: '典籍里的中国' },
-  { t: '《朗读者》', d: '一段文字，一个人生故事', k: '朗读者' },
-  { t: '《中国诗词大会》', d: '诗词之美，浸润心灵', k: '中国诗词大会' },
-  { t: '《故宫100》', d: '100集短片，读懂紫禁城', k: '故宫100' },
-  { t: '《了不起的匠人》', d: '匠心与坚守的故事', k: '了不起的匠人' },
-  { t: '《行星》· BBC 宇宙纪录片', d: '太阳系八大行星的前世今生', k: '行星 纪录片' },
-  { t: '《艺术的力量》', d: '看懂名画背后的大师人生', k: '艺术的力量' },
-  { t: '《博物馆的秘密》', d: '逛博物馆前必看的功课', k: '博物馆的秘密' },
-  { t: '《跟着唐诗去旅行》', d: '沿着诗路，看今天的山水', k: '跟着唐诗去旅行' },
-  { t: '《非遗里的中国》', d: '看见传统手艺的现代新生', k: '非遗里的中国' },
-  { t: '《园林》· 中式美学', d: '一草一木间的东方审美', k: '园林 纪录片' },
-  { t: '《徒手攀岩》', d: '一个人的专注，能抵达多高的地方', k: '徒手攀岩 纪录片' },
-];
-
-const PHOTOS = [
-  { u: 'photo-1506905925346-21bda4d32df4', c: '雪山之巅，安静又辽阔' },
-  { u: 'photo-1441974231531-c6227db76b6e', c: '森林里的光，像在呼吸' },
-  { u: 'photo-1501785888041-af3ef285b470', c: '湖光山色，水天一色' },
-  { u: 'photo-1470071459604-3b5ec3a7fe05', c: '晨雾中的山谷' },
-  { u: 'photo-1472214103451-9374bd1c798e', c: '麦田与远山' },
-  { u: 'photo-1433086966358-54859d0ed716', c: '瀑布与绿意' },
-  { u: 'photo-1519681393784-d120267933ba', c: '雪夜星空下的山' },
-  { u: 'photo-1469474968028-56623f02e42e', c: '山谷里的日落' },
-  { u: 'photo-1507525428034-b723cf961d3e', c: '海边的温柔时光' },
-  { u: 'photo-1519046904884-53103b34b206', c: '沙滩与浪花' },
-  { u: 'photo-1476514525535-07fb3b4ae5f1', c: '湖上泛舟' },
-  { u: 'photo-1444723121867-7a241cacace9', c: '城市的黄昏' },
-  { u: 'photo-1493246507139-91e8fad9978e', c: '山水画卷' },
-  { u: 'photo-1500534314209-a25ddb2bd429', c: '旷野与公路' },
-  { u: 'photo-1426604966848-d7adac402bff', c: '层峦叠嶂' },
-  { u: 'photo-1447752875215-b2761acb3c5d', c: '林间晨光' },
-  { u: 'photo-1418065460487-3e41a6c84dc5', c: '云雾缭绕的山林' },
-  { u: 'photo-1439066615861-d1af74d74000', c: '湖边的宁静' },
-  { u: 'photo-1458668383970-8ddd3927deed', c: '雪山日出' },
-  { u: 'photo-1470770841072-f978cf4d019e', c: '山间小屋与湖泊' },
-  { u: 'photo-1464822759023-fed622ff2c3b', c: '群山之巅' },
-  { u: 'photo-1494500764479-0c8f2919a3d8', c: '逆光的森林' },
-  { u: 'photo-1510784722466-f2aa9c52fff6', c: '大海与礁石' },
-  { u: 'photo-1500530855697-b586d89ba3ee', c: '山谷薄雾' },
-  { u: 'photo-1476234251651-f353703a034d', c: '溪流与青苔' },
-  { u: 'photo-1504198453319-5ce911bafcde', c: '湖心小岛' },
-  { u: 'photo-1465146344425-f00d5f5c8f07', c: '花田与春天' },
-  { u: 'photo-1454391304352-2bf4678b1a7a', c: '海边的晚霞' },
-];
-
-const ARTICLES = [
-  { t: '静夜思', a: '李白', b: '床前明月光，疑是地上霜。举头望明月，低头思故乡。', n: '二十个字，写尽千年乡愁。' },
-  { t: '春晓', a: '孟浩然', b: '春眠不觉晓，处处闻啼鸟。夜来风雨声，花落知多少。', n: '清晨醒来，听见春天。' },
-  { t: '山居秋暝', a: '王维', b: '空山新雨后，天气晚来秋。明月松间照，清泉石上流。', n: '诗中有画，画中有诗。' },
-  { t: '江雪', a: '柳宗元', b: '千山鸟飞绝，万径人踪灭。孤舟蓑笠翁，独钓寒江雪。', n: '最孤独的山水，最强大的内心。' },
-  { t: '望庐山瀑布', a: '李白', b: '日照香炉生紫烟，遥看瀑布挂前川。飞流直下三千尺，疑是银河落九天。', n: '想象力就是最好的翅膀。' },
-  { t: '登鹳雀楼', a: '王之涣', b: '白日依山尽，黄河入海流。欲穷千里目，更上一层楼。', n: '站得高，才能看得远。' },
-  { t: '春江花月夜（节选）', a: '张若虚', b: '春江潮水连海平，海上明月共潮生。滟滟随波千万里，何处春江无月明。', n: '孤篇盖全唐的月色。' },
-  { t: '题西林壁', a: '苏轼', b: '横看成岭侧成峰，远近高低各不同。不识庐山真面目，只缘身在此山中。', n: '换个角度，世界就不一样。' },
-  { t: '水调歌头（节选）', a: '苏轼', b: '明月几时有？把酒问青天。不知天上宫阙，今夕是何年。', n: '千年一问，仍动人心。' },
-  { t: '饮酒（其五）', a: '陶渊明', b: '采菊东篱下，悠然见南山。山气日夕佳，飞鸟相与还。', n: '慢下来，才能看见美好。' },
-  { t: '望岳（节选）', a: '杜甫', b: '会当凌绝顶，一览众山小。', n: '年轻时读它，浑身是劲。' },
-  { t: '枫桥夜泊', a: '张继', b: '月落乌啼霜满天，江枫渔火对愁眠。姑苏城外寒山寺，夜半钟声到客船。', n: '一首诗，让一座城名扬千年。' },
-  { t: '竹里馆', a: '王维', b: '独坐幽篁里，弹琴复长啸。深林人不知，明月来相照。', n: '一个人的安静，也很丰盛。' },
-  { t: '如梦令', a: '李清照', b: '常记溪亭日暮，沉醉不知归路。兴尽晚回舟，误入藕花深处。争渡，争渡，惊起一滩鸥鹭。', n: '少女时代的快乐，跃然纸上。' },
-  { t: '游山西村（节选）', a: '陆游', b: '山重水复疑无路，柳暗花明又一村。', n: '再难的时候，也藏着转机。' },
-  { t: '观书有感', a: '朱熹', b: '问渠那得清如许？为有源头活水来。', n: '保持学习，心才不会干涸。' },
-  { t: '送杜少府之任蜀州（节选）', a: '王勃', b: '海内存知己，天涯若比邻。', n: '真正的友谊，不惧距离。' },
-  { t: '长歌行（节选）', a: '汉乐府', b: '少壮不努力，老大徒伤悲。', n: '最朴素的话，最深的道理。' },
-  { t: '青玉案·元夕（节选）', a: '辛弃疾', b: '众里寻他千百度。蓦然回首，那人却在，灯火阑珊处。', n: '兜兜转转，答案就在身边。' },
-  { t: '定风波（节选）', a: '苏轼', b: '莫听穿林打叶声，何妨吟啸且徐行。竹杖芒鞋轻胜马，谁怕？一蓑烟雨任平生。', n: '人生风雨，不如笑着走过。' },
-  { t: '滁州西涧', a: '韦应物', b: '独怜幽草涧边生，上有黄鹂深树鸣。春潮带雨晚来急，野渡无人舟自横。', n: '无人之境，自有闲趣。' },
-  { t: '春日', a: '朱熹', b: '等闲识得东风面，万紫千红总是春。', n: '春天从不挑剔观众。' },
-  { t: '泊船瓜洲（节选）', a: '王安石', b: '春风又绿江南岸，明月何时照我还。', n: '一个「绿」字，改了几十遍。' },
-  { t: '鹊桥仙（节选）', a: '秦观', b: '两情若是久长时，又岂在朝朝暮暮。', n: '爱是长情，不是朝夕。' },
-];
-
-function renderDiscover() {
-  const dayIndex = Math.floor(Date.now() / 86400000);
-
-  const vid = VIDEOS[dayIndex % VIDEOS.length];
-  $('#video-body').innerHTML =
-    `<div class="vid-title">${vid.t}</div>` +
-    `<div class="vid-desc">${vid.d}</div>` +
-    `<a class="primary-btn small" target="_blank" rel="noopener" href="https://search.bilibili.com/all?keyword=${encodeURIComponent(vid.k)}">▶ 去看视频</a>`;
-
-  const photo = PHOTOS[dayIndex % PHOTOS.length];
-  const img = $('#photo-img');
-  img.src = `https://images.unsplash.com/${photo.u}?w=800&q=80&auto=format&fit=crop`;
-  img.onerror = () => {
-    img.onerror = null;
-    img.src = `https://picsum.photos/seed/xiaorui${dayIndex % 97}/800/900`;
-  };
-  $('#photo-cap').textContent = photo.c;
-
-  const art = ARTICLES[dayIndex % ARTICLES.length];
-  $('#article-text').innerHTML =
-    `<div class="a-title">《${art.t}》</div>` +
-    `<div class="a-meta">${art.a}</div>` +
-    `<div class="a-body">${art.b}</div>` +
-    `<div class="a-note">💡 ${art.n}</div>`;
-}
+// 每日视频、美图与文章由 daily-content.js 和 /api/daily 提供。
 
 const NEWS_API = 'https://60s.viki.moe/v2/60s';
 const NEWS_FALLBACK = 'https://cdn.jsdmirror.com/gh/vikiboss/60s-static-host@main/static/60s/';
@@ -1323,7 +1260,7 @@ function fetchNews() {
     .then((data) => {
       const news = data && data.data && Array.isArray(data.data.news) ? data.data.news : [];
       if (!news.length) throw new Error('empty');
-      return { date: data.data.date, news };
+      return { date: data.data.date, link: data.data.link || '', news };
     })
     .catch(() => {
       const now = new Date();
@@ -1332,7 +1269,7 @@ function fetchNews() {
         .then((r) => r.json())
         .then((data) => {
           if (!data || !Array.isArray(data.news) || !data.news.length) throw new Error('empty');
-          return { date: data.date || key, news: data.news };
+          return { date: data.date || key, link: '', news: data.news };
         });
     });
 }
@@ -1342,15 +1279,31 @@ function loadNews() {
   const listEl = $('#news-list');
   listEl.innerHTML = '<div class="news-loading">📡 正在加载今日资讯…</div>';
   fetchNews()
-    .then(({ date, news }) => {
+    .then(({ date, link, news }) => {
       dateEl.textContent = `📅 ${date}`;
       listEl.innerHTML = '';
       news.forEach((n, i) => {
-        const row = document.createElement('div');
+        const row = document.createElement('a');
         row.className = 'news-item';
+        row.href = `https://www.baidu.com/s?wd=${encodeURIComponent(n)}`;
+        row.target = '_blank';
+        row.rel = 'noopener';
         row.textContent = `${i + 1}. ${n}`;
+        const tag = document.createElement('span');
+        tag.className = 'n-link';
+        tag.textContent = '详情 ›';
+        row.appendChild(tag);
         listEl.appendChild(row);
       });
+      if (link) {
+        const more = document.createElement('a');
+        more.className = 'news-more';
+        more.href = link;
+        more.target = '_blank';
+        more.rel = 'noopener';
+        more.textContent = '📄 查看完整图文版 ›';
+        listEl.appendChild(more);
+      }
     })
     .catch(() => {
       dateEl.textContent = '';
@@ -1382,10 +1335,10 @@ renderCalendar();
 renderPeriodStats();
 renderPeriodSummary();
 renderSong();
+loadQQHotSongs(() => renderSong());
 renderFitness();
 renderDaily();
 renderMoney();
-renderDiscover();
 loadNews();
 
 if ('serviceWorker' in navigator) {

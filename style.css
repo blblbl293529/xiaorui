@@ -721,10 +721,29 @@ main {
 .article-text .a-note { color: var(--text-soft); font-size: 12.5px; }
 .news-date { font-size: 12px; color: var(--text-soft); margin-bottom: 6px; }
 .news-item {
-  padding: 9px 0;
+  display: block;
+  padding: 9px 4px;
   border-bottom: 1px dashed var(--blue-200);
   font-size: 13.5px;
   line-height: 1.7;
+  text-decoration: none;
+  color: var(--text-main);
 }
+.news-item:active { background: var(--blue-100); }
 .news-item:last-child { border-bottom: none; }
+.news-item .n-link {
+  color: var(--blue-500);
+  font-size: 12px;
+  margin-left: 6px;
+  white-space: nowrap;
+}
+.news-more {
+  display: block;
+  margin-top: 12px;
+  text-align: center;
+  font-size: 13px;
+  color: var(--blue-500);
+  text-decoration: none;
+  padding: 8px 0 2px;
+}
 .news-loading { font-size: 13px; color: var(--text-soft); padding: 8px 0; }

@@ -13,6 +13,7 @@
   <link rel="icon" href="icon-180.png">
   <link rel="apple-touch-icon" href="icon-180.png">
   <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="daily-content.css">
 </head>
 <body>
   <div class="cloud cloud-1">☁️</div>
@@ -101,6 +102,19 @@
 
     <!-- 健康页 -->
     <section id="page-fitness" class="page">
+      <div class="card" id="workout-card">
+        <div class="section-title">🧘 每日塑形跟练<button id="btn-refresh-workouts" class="ghost-btn small-btn" type="button">检查更新</button></div>
+        <p class="hint">腿部塑形 · 臀部力量 · 放松拉伸</p>
+        <p id="workout-status" class="hint" aria-live="polite">正在获取跟练视频…</p>
+        <div id="workout-videos" class="daily-train"></div>
+        <details class="workout-library" open>
+          <summary>常用跟练视频 · 固定参考</summary>
+          <p class="hint">以下是人工核对过页面的参考视频，不是当天新发布内容。未进行动作质量评估，请按自身情况选择。</p>
+          <a href="https://www.bilibili.com/video/BV1TyaSzEEb4/" target="_blank" rel="noopener noreferrer">▶ 腿臀训练 · 10 分钟站立跟练（B 站，2025-09-05）</a>
+          <a href="https://www.bilibili.com/video/BV1B1dAByELL/" target="_blank" rel="noopener noreferrer">▶ 臀部力量 · 刘元的徒手跟练（B 站，2026-05-08）</a>
+          <a href="https://www.bilibili.com/video/BV1Js4y15784/" target="_blank" rel="noopener noreferrer">▶ 练前拉伸 · 臀腿激活参考（B 站，2023-03-07）</a>
+        </details>
+      </div>
       <div class="card">
         <div class="section-title">📋 身体数据</div>
         <div class="form-grid">
@@ -234,6 +248,11 @@
 
     <!-- 发现页 -->
     <section id="page-music" class="page">
+      <div class="card daily-toolbar">
+        <div class="section-title">✨ 每日新发现<button id="btn-refresh-content" class="ghost-btn small-btn" type="button">检查更新</button></div>
+        <p id="daily-content-status" class="hint" aria-live="polite">正在获取每日内容…</p>
+        <p class="hint">从内容源获取近期发布，排除往日推荐；暂无新内容时不循环旧列表。</p>
+      </div>
       <div class="card song-card">
         <div class="song-label">今日份小睿推荐</div>
         <div class="song-cover" id="song-cover">🎵</div>
@@ -251,10 +270,7 @@
 
       <div class="card discover-card">
         <div class="section-title">🖼️ 今日美图</div>
-        <div class="disc-img-wrap">
-          <img id="photo-img" alt="今日美图" loading="lazy">
-          <div class="photo-cap" id="photo-cap"></div>
-        </div>
+        <div id="photo-body"></div>
       </div>
 
       <div class="card discover-card">
@@ -294,5 +310,6 @@
   </div>
 
   <script src="app.js"></script>
+  <script src="daily-content.js" defer></script>
 </body>
 </html>
