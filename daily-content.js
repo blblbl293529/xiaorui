@@ -1,7 +1,7 @@
 /* daily-content.js — 每日内容（抖音搜索入口/图文），无依赖。渲染统一用 textContent。 */
 (() => {
   'use strict';
-  const API = '/api/daily', KEY = 'xiaorui_daily_content_douyin_v1', TZ = 'Asia/Shanghai';
+  const API = '/api/daily', KEY = 'xiaorui_daily_content_douyin_v2', TZ = 'Asia/Shanghai';
   const STATIC = document.documentElement?.dataset.dailySource === 'static';
   const TRAIN = [
     { key: 'legs', label: '腿部塑形', kw: '腿部塑形 健身' },
@@ -17,6 +17,8 @@
     return new Date(d.getTime() + 8 * 3600000).toISOString().slice(0, 10);
   };
   const validItem = (i) => !!i && typeof i === 'object' && typeof i.id === 'string' && typeof i.title === 'string' && i.title.trim() !== '' && isHttps(i.url);
+  const douyinItem = (s) => s?.mode === 'automatic' && validItem(s.item) &&
+    /^https:\/\/www\.douyin\.com\/video\/\d+$/.test(s.item.url);
   const secOk = (s) => !!s && typeof s === 'object' && ['fresh', 'stale', 'empty', 'error'].includes(s.status);
   function validPayload(p) {
     return !!p && typeof p === 'object' && typeof p.date === 'string' && /^\d{4}-\d{2}-\d{2}$/.test(p.date) &&
@@ -74,9 +76,15 @@
   function renderTraining(sec, def) {
     const wrap = el('div', 'daily-section');
     wrap.append(el('h2', 'daily-h2', def.label));
-    const card = el('article', 'daily-card');
-    card.append(el('p', 'daily-desc', '在抖音选择适合自己的跟练视频。'));
-    card.append(link(searchUrl(def.kw), '去抖音看' + def.label, 'daily-cta'));
+    let card;
+    if (douyinItem(sec) && ['fresh', 'stale'].includes(sec.status)) {
+      if (sec.status === 'stale') wrap.append(el('p', 'daily-note', '未能刷新，显示 ' + (sec.selectedDate || '旧日期') + ' 的推荐'));
+      card = renderItem(sec.item, { cta: '去抖音跟练' });
+    } else {
+      card = el('article', 'daily-card');
+      card.append(el('p', 'daily-desc', sec?.message || '自动推荐待开通，可先在抖音选择跟练视频。'));
+      card.append(link(searchUrl(def.kw), '去抖音看' + def.label, 'daily-cta'));
+    }
     const button = el('button', 'workout-done', workoutLabel(def.key, 'douyin-search'));
     button.type = 'button'; button.dataset.vid = 'douyin-search'; button.dataset.kw = def.key;
     button.dataset.day = shDate();
@@ -96,11 +104,16 @@
       else host.append(messageBox(sec.message || '暂时无法获取内容', searchHint(kw)));
     } else host.append(messageBox(sec && sec.message ? sec.message : '暂时无法获取内容', searchHint(kw)));
   }
-  function renderVideo() {
+  function renderVideo(sec) {
+    if (sec?.mode === 'automatic') {
+      const safe = douyinItem(sec) ? sec : { ...sec, item: null, status: sec.status === 'fresh' ? 'error' : sec.status };
+      renderMedia('video-body', safe, '自然 人文 纪录片', '今日抖音推荐', '去抖音观看');
+      return;
+    }
     const host = $('video-body'); if (!host) return;
     host.textContent = ''; host.className = 'content-block';
     host.append(el('h2', 'daily-h2', '抖音视频'));
-    host.append(el('p', 'daily-desc', '前往抖音搜索自然、人文与纪录片视频。当前为搜索入口，暂未接入每日自动推荐。'));
+    host.append(el('p', 'daily-desc', sec?.message || '自动推荐待开通，可先前往抖音搜索自然、人文与纪录片视频。'));
     host.append(link(searchUrl('自然 人文 纪录片'), '去抖音看视频', 'daily-cta'));
   }
   function renderPhoto(sec) {
@@ -162,9 +175,14 @@
     if (opts.staleDate) setStatus('未能刷新，显示 ' + opts.staleDate + ' 的缓存内容', 'stale');
     else if (payload) {
       const discovered = ['photo', 'article'].filter(k => sec[k]?.status === 'fresh').length;
+      const videos = [...TRAIN.map(t => t.key), 'video'];
+      const enabled = videos.some(k => sec[k]?.mode === 'automatic');
+      const freshVideos = videos.filter(k => sec[k]?.status === 'fresh' && douyinItem(sec[k])).length;
+      const incomplete = discovered < 2 || (enabled && freshVideos < 4);
       const checked = new Date(payload.refreshedAt).toLocaleString('zh-CN', { timeZone: TZ });
-      setStatus((STATIC ? '云端更新：' : '最近检查：') + checked + ' · 图文 ' + discovered + '/2 · 视频为抖音搜索入口' +
-        (discovered < 2 ? '，部分图文待更新' : ''), discovered < 2 ? 'partial' : 'ok');
+      setStatus((STATIC ? '云端更新：' : '最近检查：') + checked + ' · 图文 ' + discovered + '/2 · ' +
+        (enabled ? '抖音推荐 ' + freshVideos + '/4' : '抖音自动推荐待开通') +
+        (incomplete ? '，部分内容待更新' : ''), incomplete ? 'partial' : 'ok');
     }
   }
   function renderEmpty(msg) {
@@ -211,7 +229,7 @@
     try {
       const data = await fetchDaily(manual ? 'POST' : 'GET');
       writeCache(data); renderAll(data); lastFgDate = data.date;
-      retrySoon = ['photo', 'article'].some(key => data.sections[key].status !== 'fresh');
+      retrySoon = Object.values(data.sections).some(sec => sec.mode !== 'external_search' && sec.status !== 'fresh');
     } catch (e) {
       retrySoon = true;
       const c = readCache(); const msg = errMsg(e);

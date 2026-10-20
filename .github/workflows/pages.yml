@@ -35,6 +35,10 @@ jobs:
           python -m unittest discover -s tests -p 'test_*.py'
           node tests/daily-refresh.cjs
       - name: Fetch public sources and build the static site
+        env:
+          DOUYIN_CLIENT_KEY: ${{ secrets.DOUYIN_CLIENT_KEY }}
+          DOUYIN_CLIENT_SECRET: ${{ secrets.DOUYIN_CLIENT_SECRET }}
+          DOUYIN_DEVICE_ID: ${{ secrets.DOUYIN_DEVICE_ID }}
         run: python publish_daily.py
       - name: Save public recommendation history for the next run
         run: |

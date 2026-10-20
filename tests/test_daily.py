@@ -1,4 +1,5 @@
 import json
+import os
 from datetime import datetime, timedelta, timezone
 from pathlib import Path
 import sys
@@ -82,7 +83,7 @@ class DailyTests(unittest.TestCase):
         with tempfile.TemporaryDirectory() as directory:
             service = DailyService(directory, clock=lambda: self.clock)
             restore_history(service, history)
-            with patch("daily_service.photos", return_value=[]), patch("daily_service.articles", return_value=[]), patch("daily_service.request_bytes") as network:
+            with patch.dict(os.environ, {}, clear=True), patch("daily_service.photos", return_value=[]), patch("daily_service.articles", return_value=[]), patch("daily_service.request_bytes") as network:
                 payload = service.get()
                 for channel in ("legs", "glutes", "stretch", "video"):
                     section = payload["sections"][channel]

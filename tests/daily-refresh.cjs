@@ -20,7 +20,7 @@ async function main(staticSite = false) {
     constructor(...args) { super(...(args.length ? args : [now])); }
     static now() { return now; }
   }
-  const hosts = new Map(['workout-videos', 'daily-content-status'].map(id => [id, new Element()]));
+  const hosts = new Map(['workout-videos', 'daily-content-status', 'video-body'].map(id => [id, new Element()]));
   const documentEvents = {}, windowEvents = {}, storage = new Map(), requests = [];
   let tick, fail = false, nextPayload;
   const document = {
@@ -112,6 +112,23 @@ async function main(staticSite = false) {
     assert.ok(requests.every(r => new URL(r.url).searchParams.has('check')),
       'Pages requests bypass stale CDN responses');
   }
+  nextPayload = payload(true);
+  for (const [index, key] of ['legs', 'glutes', 'stretch', 'video'].entries()) {
+    nextPayload.sections[key].mode = 'automatic';
+    nextPayload.sections[key].item.url = 'https://www.douyin.com/video/' + (123400 + index);
+  }
+  await window.__xiaoruiDaily.refresh();
+  assert.match(hosts.get('daily-content-status').textContent, /抖音推荐 4\/4/);
+  assert.ok(JSON.stringify(hosts.get('workout-videos')).includes('recovered legs'));
+  assert.ok(JSON.stringify(hosts.get('video-body')).includes('https://www.douyin.com/video/123403'));
+  nextPayload.sections.video.status = 'empty';
+  nextPayload.sections.video.item = null;
+  now += 120000; tick(); await flush(); // previous healthy interval still applies
+  await window.__xiaoruiDaily.refresh();
+  const beforeRetry = requests.length;
+  now += 120000; tick(); await flush();
+  assert.equal(requests.length, beforeRetry + 1, 'missing automatic videos use short retries');
+  assert.ok(!JSON.stringify(hosts.get('video-body')).includes('recovered video'), 'exhaustion cannot loop the old video');
   console.log('Daily refresh regression checks passed: ' + (staticSite ? 'Pages' : 'local API'));
 }
 main().then(() => main(true)).catch(error => { console.error(error); process.exitCode = 1; });

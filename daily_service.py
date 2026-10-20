@@ -14,6 +14,7 @@ import urllib.error
 import urllib.parse
 import urllib.request
 import xml.etree.ElementTree as ET
+from douyin_source import client as douyin_client
 
 SHANGHAI = timezone(timedelta(hours=8))
 CHANNELS = ("legs", "glutes", "stretch", "video", "photo", "article")
@@ -165,8 +166,26 @@ def fetch_channel(channel):
     if channel == "article":
         return articles()
     if channel in ("legs", "glutes", "stretch", "video"):
-        # Search links are not daily recommendations. No unauthorised video fetch.
-        return None
+        rows = douyin_client.search(QUERIES[channel])
+        if rows is None:
+            return None
+        items = []
+        for row in rows:
+            if not isinstance(row, dict):
+                continue
+            identity = str(row.get("item_id", ""))
+            published = timestamp(row.get("create_time"))
+            title = plain(row.get("title"))
+            if not identity.isascii() or not identity.isdigit() or not published or not title:
+                continue
+            items.append({
+                "id": "douyin:" + identity, "title": title,
+                "url": "https://www.douyin.com/video/" + identity,
+                "imageUrl": https_url(row.get("cover")), "source": "抖音",
+                "publishedAt": published.isoformat(),
+                "description": "作者：" + plain(row.get("nickname"), 80) if row.get("nickname") else "",
+            })
+        return items
     raise ValueError("unknown-content-channel")
 
 
@@ -199,6 +218,8 @@ class DailyService:
     def report_error(self, channel, error):
         event = {"at": self.clock().isoformat(), "component": "daily-content", "channel": channel,
                  "error": type(error).__name__, "status": getattr(error, "code", None)}
+        if getattr(error, "platform_code", None) is not None:
+            event["platformCode"] = error.platform_code
         with (self.directory / "errors.jsonl").open("a", encoding="utf-8") as stream:
             stream.write(json.dumps(event) + "\n")
 
@@ -231,12 +252,16 @@ class DailyService:
                             "status": "empty", "item": None, "selectedDate": None,
                             "mode": "external_search", "source": "抖音",
                             "searchUrl": "https://www.douyin.com/search/" + urllib.parse.quote(QUERIES[channel], safe=""),
-                            "message": "抖音搜索入口，暂未接入自动每日视频推荐。",
+                            "message": "自动推荐待开通，暂未配置抖音视频搜索权限；可先前往抖音搜索。",
                         }
                         continue
                     previous = db.execute(
                         "SELECT day,item FROM selections WHERE channel=? ORDER BY day DESC LIMIT 1",
                         (channel,)).fetchone()
+                    if previous and self.fetcher is fetch_channel and channel in QUERIES:
+                        old = json.loads(previous[1])
+                        if not re.fullmatch(r"https://www\.douyin\.com/video/\d+", old.get("url", "")):
+                            previous = None
                     if error:
                         sections[channel] = {
                             "status": "stale" if previous else "error",
@@ -281,6 +306,10 @@ class DailyService:
                     else:
                         sections[channel] = {"status": "empty", "item": None, "selectedDate": None,
                                              "message": "暂时没有未推荐过的新内容，稍后更新，不循环旧内容。"}
+            for channel in QUERIES:
+                if self.fetcher is fetch_channel and sections[channel].get("mode") != "external_search":
+                    sections[channel]["mode"] = "automatic"
+                    sections[channel]["source"] = "抖音"
             self.snapshot = {"date": today, "refreshedAt": current.isoformat(), "sections": sections}
             self.checked_at = current
             return self.snapshot

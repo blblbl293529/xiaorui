@@ -1,4 +1,4 @@
-const CACHE = 'xiaorui-v10-douyin1';
+const CACHE = 'xiaorui-v11-douyin-auto';
 const ASSETS = [
   './',
   './index.html',
