@@ -34,6 +34,10 @@
       "2026-10-21"
     ],
     [
+      "bing:OHR.YellowstoneWolves",
+      "2026-10-23"
+    ],
+    [
       "https://sspai.com/post/115090",
       "2026-10-22"
     ],
@@ -195,6 +199,19 @@
         "source": "必应每日壁纸",
         "publishedAt": "2026-10-21T16:00:00+00:00",
         "description": "内藏山国立公园的秋景，韩国 (© Twenty47studio/Getty Images)"
+      }
+    },
+    {
+      "channel": "photo",
+      "day": "2026-10-23",
+      "item": {
+        "id": "bing:OHR.YellowstoneWolves",
+        "title": "荒野伙伴",
+        "url": "https://www.bing.com/search?q=%E7%81%B0%E7%8B%BC&form=hpcapt&mkt=zh-cn",
+        "imageUrl": "https://cn.bing.com/th?id=OHR.YellowstoneWolves_ZH-CN6767268961_1920x1080.jpg&rf=LaDigue_1920x1080.jpg&pid=hp",
+        "source": "必应每日壁纸",
+        "publishedAt": "2026-10-22T16:00:00+00:00",
+        "description": "两只灰狼，黄石国家公园，怀俄明州，美国 (© John Morrison/Getty Images)"
       }
     },
     {
