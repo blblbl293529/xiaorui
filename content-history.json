@@ -62,6 +62,10 @@
       "2026-10-21"
     ],
     [
+      "https://sspai.com/post/116953",
+      "2026-10-22"
+    ],
+    [
       "https://sspai.com/prime/story/inside-release-notes-261020",
       "2026-10-20"
     ],
@@ -105,11 +109,11 @@
       "channel": "article",
       "day": "2026-10-22",
       "item": {
-        "id": "https://sspai.com/post/116430",
-        "title": "App+1 | 紫毫：基于 Rime 引擎、支持双拼纠错的 iOS 输入法",
-        "url": "https://sspai.com/post/116430",
+        "id": "https://sspai.com/post/116953",
+        "title": "派早报：荣耀发布 WIN2 系列新品、Google 开源 TorchTPU 等",
+        "url": "https://sspai.com/post/116953",
         "source": "少数派",
-        "publishedAt": "2026-10-20T10:34:39+08:00",
+        "publishedAt": "2026-10-22T08:29:05+08:00",
         "description": "来自少数派的最新文章，点击前往来源阅读全文。",
         "imageUrl": ""
       }
