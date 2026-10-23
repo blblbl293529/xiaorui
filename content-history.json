@@ -30,6 +30,10 @@
       "2026-10-22"
     ],
     [
+      "bing:OHR.PortugueseLibrary",
+      "2026-10-24"
+    ],
+    [
       "bing:OHR.VietnamBridge",
       "2026-10-21"
     ],
@@ -241,6 +245,19 @@
         "source": "必应每日壁纸",
         "publishedAt": "2026-10-22T16:00:00+00:00",
         "description": "两只灰狼，黄石国家公园，怀俄明州，美国 (© John Morrison/Getty Images)"
+      }
+    },
+    {
+      "channel": "photo",
+      "day": "2026-10-24",
+      "item": {
+        "id": "bing:OHR.PortugueseLibrary",
+        "title": "书香里的极致华美",
+        "url": "https://www.bing.com/search?q=%E7%9A%87%E5%AE%B6%E8%91%A1%E8%90%84%E7%89%99%E8%AF%AD%E9%98%85%E8%A7%88%E5%AE%A4&form=hpcapt&mkt=zh-cn",
+        "imageUrl": "https://cn.bing.com/th?id=OHR.PortugueseLibrary_ZH-CN7096893027_1920x1080.jpg&rf=LaDigue_1920x1080.jpg&pid=hp",
+        "source": "必应每日壁纸",
+        "publishedAt": "2026-10-23T16:00:00+00:00",
+        "description": "皇家葡萄牙语阅览室，里约热内卢，巴西 (© Antonio Salaverry/Shutterstock)"
       }
     },
     {
