@@ -26,6 +26,10 @@
       "2026-10-20"
     ],
     [
+      "bing:OHR.MaligneFest",
+      "2026-10-25"
+    ],
+    [
       "bing:OHR.NaejangsanNP",
       "2026-10-22"
     ],
@@ -275,6 +279,19 @@
         "source": "必应每日壁纸",
         "publishedAt": "2026-10-23T16:00:00+00:00",
         "description": "皇家葡萄牙语阅览室，里约热内卢，巴西 (© Antonio Salaverry/Shutterstock)"
+      }
+    },
+    {
+      "channel": "photo",
+      "day": "2026-10-25",
+      "item": {
+        "id": "bing:OHR.MaligneFest",
+        "title": "群峰与宁静相遇之地",
+        "url": "https://www.bing.com/search?q=%E7%8E%9B%E7%90%B3%E6%B9%96&form=hpcapt&mkt=zh-cn",
+        "imageUrl": "https://cn.bing.com/th?id=OHR.MaligneFest_ZH-CN8343066766_1920x1080.jpg&rf=LaDigue_1920x1080.jpg&pid=hp",
+        "source": "必应每日壁纸",
+        "publishedAt": "2026-10-24T16:00:00+00:00",
+        "description": "玛琳湖，贾斯珀国家公园，艾伯塔省，加拿大 (© Andrey Popov/Getty Images)"
       }
     },
     {
