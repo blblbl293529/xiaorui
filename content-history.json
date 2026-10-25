@@ -38,6 +38,10 @@
       "2026-10-24"
     ],
     [
+      "bing:OHR.SitovoWaterfall",
+      "2026-10-26"
+    ],
+    [
       "bing:OHR.VietnamBridge",
       "2026-10-21"
     ],
@@ -309,6 +313,19 @@
         "source": "必应每日壁纸",
         "publishedAt": "2026-10-24T16:00:00+00:00",
         "description": "玛琳湖，贾斯珀国家公园，艾伯塔省，加拿大 (© Andrey Popov/Getty Images)"
+      }
+    },
+    {
+      "channel": "photo",
+      "day": "2026-10-26",
+      "item": {
+        "id": "bing:OHR.SitovoWaterfall",
+        "title": "大自然的秋日乐章",
+        "url": "https://www.bing.com/search?q=%E4%BF%9D%E5%8A%A0%E5%88%A9%E4%BA%9A%E6%99%AE%E7%BD%97%E5%A4%AB%E8%BF%AA%E5%A4%AB%E8%A5%BF%E6%89%98%E6%B2%83&form=hpcapt&mkt=zh-cn",
+        "imageUrl": "https://cn.bing.com/th?id=OHR.SitovoWaterfall_ZH-CN8495214046_1920x1080.jpg&rf=LaDigue_1920x1080.jpg&pid=hp",
+        "source": "必应每日壁纸",
+        "publishedAt": "2026-10-25T16:00:00+00:00",
+        "description": "秋日瀑布，西托沃附近，普罗夫迪夫州，保加利亚 (© Nadya85/Getty Images)"
       }
     },
     {
