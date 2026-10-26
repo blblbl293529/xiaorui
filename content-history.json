@@ -34,6 +34,10 @@
       "2026-10-22"
     ],
     [
+      "bing:OHR.PondCypress",
+      "2026-10-27"
+    ],
+    [
       "bing:OHR.PortugueseLibrary",
       "2026-10-24"
     ],
@@ -120,6 +124,10 @@
     [
       "https://sspai.com/post/117169",
       "2026-10-23"
+    ],
+    [
+      "https://sspai.com/post/117180",
+      "2026-10-27"
     ],
     [
       "https://sspai.com/post/117414",
@@ -234,6 +242,19 @@
         "url": "https://sspai.com/post/117529",
         "source": "少数派",
         "publishedAt": "2026-10-26T18:17:46+08:00",
+        "description": "来自少数派的最新文章，点击前往来源阅读全文。",
+        "imageUrl": ""
+      }
+    },
+    {
+      "channel": "article",
+      "day": "2026-10-27",
+      "item": {
+        "id": "https://sspai.com/post/117180",
+        "title": "少数派×红树林基金会｜候鸟季公益直播，邀你共护湿地",
+        "url": "https://sspai.com/post/117180",
+        "source": "少数派",
+        "publishedAt": "2026-10-26T11:00:13+08:00",
         "description": "来自少数派的最新文章，点击前往来源阅读全文。",
         "imageUrl": ""
       }
@@ -355,6 +376,19 @@
         "source": "必应每日壁纸",
         "publishedAt": "2026-10-25T16:00:00+00:00",
         "description": "秋日瀑布，西托沃附近，普罗夫迪夫州，保加利亚 (© Nadya85/Getty Images)"
+      }
+    },
+    {
+      "channel": "photo",
+      "day": "2026-10-27",
+      "item": {
+        "id": "bing:OHR.PondCypress",
+        "title": "大自然的金色明镜",
+        "url": "https://www.bing.com/search?q=%E6%B1%A0%E6%9D%89&form=hpcapt&mkt=zh-cn",
+        "imageUrl": "https://cn.bing.com/th?id=OHR.PondCypress_ZH-CN9472607734_1920x1080.jpg&rf=LaDigue_1920x1080.jpg&pid=hp",
+        "source": "必应每日壁纸",
+        "publishedAt": "2026-10-26T16:00:00+00:00",
+        "description": "秋叶缤纷的池杉林，乔治亚州，美国 (© Chris Moore/Getty Images)"
       }
     },
     {
