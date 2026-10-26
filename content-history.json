@@ -118,6 +118,10 @@
       "2026-10-23"
     ],
     [
+      "https://sspai.com/post/117460",
+      "2026-10-26"
+    ],
+    [
       "https://sspai.com/prime/story/inside-release-notes-261020",
       "2026-10-20"
     ],
@@ -205,6 +209,19 @@
         "url": "https://sspai.com/post/114741",
         "source": "少数派",
         "publishedAt": "2026-10-25T14:30:31+08:00",
+        "description": "来自少数派的最新文章，点击前往来源阅读全文。",
+        "imageUrl": ""
+      }
+    },
+    {
+      "channel": "article",
+      "day": "2026-10-26",
+      "item": {
+        "id": "https://sspai.com/post/117460",
+        "title": "派早报：iFixit 拆解 iPhone Duo，肯定可维修性但指出内屏隐患",
+        "url": "https://sspai.com/post/117460",
+        "source": "少数派",
+        "publishedAt": "2026-10-26T07:36:36+08:00",
         "description": "来自少数派的最新文章，点击前往来源阅读全文。",
         "imageUrl": ""
       }
