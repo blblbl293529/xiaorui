@@ -22,6 +22,10 @@
       "2026-10-20"
     ],
     [
+      "bing:OHR.AveburyStones",
+      "2026-10-29"
+    ],
+    [
       "bing:OHR.BrownSloth",
       "2026-10-20"
     ],
@@ -451,6 +455,19 @@
         "source": "必应每日壁纸",
         "publishedAt": "2026-10-27T16:00:00+00:00",
         "description": "库涅季采山城堡，波希米亚，捷克 (© Marek Saroch/Alamy)"
+      }
+    },
+    {
+      "channel": "photo",
+      "day": "2026-10-29",
+      "item": {
+        "id": "bing:OHR.AveburyStones",
+        "title": "薄雾邂逅千年时光",
+        "url": "https://www.bing.com/search?q=%E5%A8%81%E5%B0%94%E7%89%B9%E9%83%A1%E5%9F%83%E5%A4%AB%E4%BC%AF%E9%87%8C%E7%8E%AF%E5%BD%A2%E9%81%97%E5%9D%80&form=hpcapt&mkt=zh-cn",
+        "imageUrl": "https://cn.bing.com/th?id=OHR.AveburyStones_ZH-CN9127100951_1920x1080.jpg&rf=LaDigue_1920x1080.jpg&pid=hp",
+        "source": "必应每日壁纸",
+        "publishedAt": "2026-10-28T16:00:00+00:00",
+        "description": "立石，埃夫伯里，威尔特郡，英格兰 (© George W Johnson/Getty Images)"
       }
     },
     {
