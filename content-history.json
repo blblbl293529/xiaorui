@@ -190,6 +190,10 @@
       "2026-10-29"
     ],
     [
+      "https://sspai.com/prime/story/how-to-analyze-health-data-with-agent",
+      "2026-10-29"
+    ],
+    [
       "https://sspai.com/prime/story/inside-release-notes-261020",
       "2026-10-20"
     ],
@@ -324,11 +328,11 @@
       "channel": "article",
       "day": "2026-10-29",
       "item": {
-        "id": "https://sspai.com/post/116686",
-        "title": "一日一技｜iPhone 恶意被锁，线上移除流程拆招",
-        "url": "https://sspai.com/post/116686",
+        "id": "https://sspai.com/prime/story/how-to-analyze-health-data-with-agent",
+        "title": "让 Agent 读懂你的身体：数据处理篇",
+        "url": "https://sspai.com/prime/story/how-to-analyze-health-data-with-agent",
         "source": "少数派",
-        "publishedAt": "2026-10-29T11:00:00+08:00",
+        "publishedAt": "2026-10-29T11:29:46+08:00",
         "description": "来自少数派的最新文章，点击前往来源阅读全文。",
         "imageUrl": ""
       }
