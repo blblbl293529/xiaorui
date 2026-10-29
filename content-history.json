@@ -154,6 +154,10 @@
       "2026-10-27"
     ],
     [
+      "https://sspai.com/post/117244",
+      "2026-10-29"
+    ],
+    [
       "https://sspai.com/post/117414",
       "2026-10-26"
     ],
@@ -328,11 +332,11 @@
       "channel": "article",
       "day": "2026-10-29",
       "item": {
-        "id": "https://sspai.com/prime/story/how-to-analyze-health-data-with-agent",
-        "title": "让 Agent 读懂你的身体：数据处理篇",
-        "url": "https://sspai.com/prime/story/how-to-analyze-health-data-with-agent",
+        "id": "https://sspai.com/post/117244",
+        "title": "如何成为不吃压力的「大心脏」？",
+        "url": "https://sspai.com/post/117244",
         "source": "少数派",
-        "publishedAt": "2026-10-29T11:29:46+08:00",
+        "publishedAt": "2026-10-29T17:05:38+08:00",
         "description": "来自少数派的最新文章，点击前往来源阅读全文。",
         "imageUrl": ""
       }
