@@ -58,6 +58,10 @@
       "2026-10-24"
     ],
     [
+      "bing:OHR.SchwarzwaldAutumn",
+      "2026-11-01"
+    ],
+    [
       "bing:OHR.SitovoWaterfall",
       "2026-10-26"
     ],
@@ -222,6 +226,10 @@
       "2026-10-30"
     ],
     [
+      "https://sspai.com/post/117960",
+      "2026-11-01"
+    ],
+    [
       "https://sspai.com/prime/story/how-to-analyze-health-data-with-agent",
       "2026-10-29"
     ],
@@ -382,6 +390,19 @@
         "url": "https://sspai.com/post/117867",
         "source": "少数派",
         "publishedAt": "2026-10-30T17:57:11+08:00",
+        "description": "来自少数派的最新文章，点击前往来源阅读全文。",
+        "imageUrl": ""
+      }
+    },
+    {
+      "channel": "article",
+      "day": "2026-11-01",
+      "item": {
+        "id": "https://sspai.com/post/117960",
+        "title": "本月玩什么｜影之刃零、战争机器：事变日等",
+        "url": "https://sspai.com/post/117960",
+        "source": "少数派",
+        "publishedAt": "2026-10-31T13:29:19+08:00",
         "description": "来自少数派的最新文章，点击前往来源阅读全文。",
         "imageUrl": ""
       }
@@ -568,6 +589,19 @@
         "source": "必应每日壁纸",
         "publishedAt": "2026-10-30T16:00:00+00:00",
         "description": "圣巴尔多禄茂教堂，法兰克福，德国 (© AlxeyPnferov/Getty Images)"
+      }
+    },
+    {
+      "channel": "photo",
+      "day": "2026-11-01",
+      "item": {
+        "id": "bing:OHR.SchwarzwaldAutumn",
+        "title": "林间迷雾",
+        "url": "https://www.bing.com/search?q=%E5%BE%B7%E5%9B%BD%E9%BB%91%E6%A3%AE%E6%9E%97&form=hpcapt&mkt=zh-cn",
+        "imageUrl": "https://cn.bing.com/th?id=OHR.SchwarzwaldAutumn_ZH-CN6323627599_1920x1080.jpg&rf=LaDigue_1920x1080.jpg&pid=hp",
+        "source": "必应每日壁纸",
+        "publishedAt": "2026-10-31T16:00:00+00:00",
+        "description": "黑森林，巴登-符腾堡州，德国 (© Britus/Getty Images)"
       }
     },
     {
