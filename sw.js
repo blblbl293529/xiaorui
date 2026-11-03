@@ -1,9 +1,9 @@
-const CACHE = 'xiaorui-v11-douyin-auto';
+const CACHE = 'xiaorui-v12-care-workouts';
 const ASSETS = [
   './',
   './index.html',
   './style.css',
-  './app.js',
+  './app.js', './care.js',
   './daily-content.js',
   './daily-content.css',
   './manifest.webmanifest',

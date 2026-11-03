@@ -30,6 +30,15 @@
   <main>
     <!-- 首页 -->
     <section id="page-home" class="page active">
+      <section class="card care-card" aria-labelledby="care-heading">
+        <h2 id="care-heading">💌 关爱一下</h2>
+        <p>给 1311926106@qq.com 捎一句「对方关爱了你一下」。点击后将取一次当前位置，经 FormSubmit 邮件服务发送坐标和地图链接。</p>
+        <label for="care-address">地点备注（选填）</label>
+        <input id="care-address" maxlength="100" placeholder="例如：公司楼下" autocomplete="off">
+        <button id="care-send" class="primary-btn" type="button">关爱一下 · 附位置发送</button>
+        <p id="care-status" role="status" aria-live="polite"></p>
+        <a id="care-mail" hidden>改用手机邮箱发送</a>
+      </section>
       <div class="card weather-card">
         <div class="weather-head">
           <div class="weather-info">
@@ -303,7 +312,7 @@
     </div>
   </div>
 
-  <script src="app.js"></script>
+  <script src="app.js"></script><script src="care.js" defer></script>
   <script src="daily-content.js" defer></script>
 </body>
 </html>

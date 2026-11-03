@@ -747,3 +747,5 @@ main {
   padding: 8px 0 2px;
 }
 .news-loading { font-size: 13px; color: var(--text-soft); padding: 8px 0; }
+
+.care-card { display:grid; gap:.65rem; } .care-card h2,.care-card p { margin:0; } .care-card p,.care-card label { font-size:.9rem; line-height:1.5; } .care-card input { width:100%; padding:.65rem; border:1px solid #d2c7ce; border-radius:.65rem; font:inherit; } #care-status:empty { display:none; } .care-card [hidden] { display:none; }

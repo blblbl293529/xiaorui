@@ -10,7 +10,7 @@ from urllib.parse import urlsplit
 from daily_service import DailyService
 
 ROOT = Path(__file__).resolve().parent
-PUBLIC = {"index.html", "app.js", "style.css", "daily-content.js", "daily-content.css",
+PUBLIC = {"index.html", "app.js", "care.js", "style.css", "daily-content.js", "daily-content.css",
           "sw.js", "manifest.webmanifest", "icon-1024.png", "icon-180.png"}
 
 
