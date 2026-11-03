@@ -1,12 +1,12 @@
 /* daily-content.js — 每日内容（抖音搜索入口/图文），无依赖。渲染统一用 textContent。 */
 (() => {
   'use strict';
-  const API = '/api/daily', KEY = 'xiaorui_daily_content_douyin_v2', TZ = 'Asia/Shanghai';
+  const API = '/api/daily', KEY = 'xiaorui_daily_content_douyin_v3', TZ = 'Asia/Shanghai';
   const STATIC = document.documentElement?.dataset.dailySource === 'static';
   const TRAIN = [
-    { key: 'legs', label: '腿部塑形', kw: '腿部塑形 健身' },
-    { key: 'glutes', label: '臀部力量', kw: '臀部训练 健身' },
-    { key: 'stretch', label: '放松拉伸', kw: '全身拉伸 放松' },
+    { key: 'office', label: '办公室锻炼', kw: '办公室 工位跟练 10分钟以内', backup: ['7474610097071656204', '坐姿核心动作', '1:01'] },
+    { key: 'glutes', label: '提臀训练', kw: '提臀跟练 10分钟以内', backup: ['7703948619674663921', '四个臀部训练动作', '1:00'] },
+    { key: 'stretch', label: '放松拉伸', kw: '全身拉伸 10分钟以内', backup: ['7698512160896694601', 'Tabata 拉伸跟练', '5:27'] },
   ];
   const $ = (id) => document.getElementById(id);
   let controller = null, loading = false, lastFgDate = null, timer = null, lastAttempt = 0;
@@ -77,13 +77,15 @@
     const wrap = el('div', 'daily-section');
     wrap.append(el('h2', 'daily-h2', def.label));
     let card;
-    if (douyinItem(sec) && ['fresh', 'stale'].includes(sec.status)) {
-      if (sec.status === 'stale') wrap.append(el('p', 'daily-note', '未能刷新，显示 ' + (sec.selectedDate || '旧日期') + ' 的推荐'));
+    if (douyinItem(sec) && sec.item.workoutTopic === def.key && Number.isInteger(sec.item.durationSeconds) && sec.item.durationSeconds > 0 && sec.item.durationSeconds <= 600 && sec.status === 'fresh') {
       card = renderItem(sec.item, { cta: '去抖音跟练' });
     } else {
       card = el('article', 'daily-card');
-      card.append(el('p', 'daily-desc', sec?.message || '自动推荐待开通，可先在抖音选择跟练视频。'));
-      card.append(link(searchUrl(def.kw), '去抖音看' + def.label, 'daily-cta'));
+      card.append(el('p', 'daily-desc', '暂无已核实时长的新推荐。也可以自行搜索，搜索结果不受时长限制。'));
+      const [id, title, time] = def.backup;
+      card.append(el('p', 'daily-note', '备用跟练 · 非今日推荐'));
+      card.append(link('https://www.douyin.com/video/' + id, title + '（' + time + '）', 'daily-cta'));
+      card.append(link(searchUrl(def.kw), '搜索' + def.label, 'daily-cta'));
     }
     const button = el('button', 'workout-done', workoutLabel(def.key, 'douyin-search'));
     button.type = 'button'; button.dataset.vid = 'douyin-search'; button.dataset.kw = def.key;
@@ -171,7 +173,7 @@
       TRAIN.forEach(t => sectionsHost.append(renderTraining(sec[t.key], t)));
     }
     renderVideo(sec.video); renderPhoto(sec.photo); renderArticle(sec.article);
-    const ws = $('workout-status'); if (ws) ws.textContent = '侧重腿臀力量与柔韧性，不承诺局部减脂。按自身情况选择强度。';
+    const ws = $('workout-status'); if (ws) ws.textContent = '每段跟练不超过 10 分钟，按自己的节奏选择。';
     if (opts.staleDate) setStatus('未能刷新，显示 ' + opts.staleDate + ' 的缓存内容', 'stale');
     else if (payload) {
       const discovered = ['photo', 'article'].filter(k => sec[k]?.status === 'fresh').length;
@@ -191,7 +193,7 @@
     renderVideo();
     if ($('photo-body')) { $('photo-body').textContent = ''; $('photo-body').append(messageBox('暂无图片')); }
     if ($('article-text')) { $('article-text').textContent = ''; $('article-text').append(messageBox('暂无文章')); }
-    if ($('workout-status')) $('workout-status').textContent = '侧重腿臀力量与柔韧性，不承诺局部减脂。按自身情况选择强度。';
+    if ($('workout-status')) $('workout-status').textContent = '每段跟练不超过 10 分钟，按自己的节奏选择。';
     setStatus(msg || '暂无内容', 'error');
   }
   function renderStaticError(msg) { renderEmpty(msg); setStatus(msg, 'error'); }

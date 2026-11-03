@@ -37,7 +37,7 @@ async function main(staticSite = false) {
     return {
       date: new Clock(now + 8 * 3600000).toISOString().slice(0, 10),
       refreshedAt: new Clock().toISOString(),
-      sections: Object.fromEntries(['legs', 'glutes', 'stretch', 'video', 'photo', 'article'].map(key => [
+      sections: Object.fromEntries(['office', 'glutes', 'stretch', 'video', 'photo', 'article'].map(key => [
         key, fresh ? { status: 'fresh', item: {
           id: key, title: 'recovered ' + key, url: 'https://example.com/' + key,
         } } : { status: 'error' },
@@ -71,9 +71,9 @@ async function main(staticSite = false) {
   assert.equal(requests.length, 2, 'same-day failures must recover without manual refresh');
   assert.match(hosts.get('daily-content-status').textContent, /图文 2\/2/);
   const workoutCard = hosts.get('workout-videos').children[0].children[1];
-  assert.equal(new URL(workoutCard.children[1].href).hostname, 'www.douyin.com');
-  assert.equal(workoutCard.children[2].dataset.vid, 'douyin-search');
-  assert.ok(!JSON.stringify(workoutCard).includes('recovered legs'), 'old source payloads cannot restore old videos');
+  assert.equal(workoutCard.children[2].href, 'https://www.douyin.com/video/7474610097071656204');
+  assert.equal(workoutCard.children.at(-1).dataset.vid, 'douyin-search');
+  assert.ok(!JSON.stringify(workoutCard).includes('recovered office'), 'old source payloads cannot restore old videos');
   now += 120000; tick(); await flush();
   assert.equal(requests.length, 2, 'healthy results use a longer interval');
   now += 780000; tick(); await flush();
@@ -113,13 +113,14 @@ async function main(staticSite = false) {
       'Pages requests bypass stale CDN responses');
   }
   nextPayload = payload(true);
-  for (const [index, key] of ['legs', 'glutes', 'stretch', 'video'].entries()) {
+  for (const [index, key] of ['office', 'glutes', 'stretch', 'video'].entries()) {
     nextPayload.sections[key].mode = 'automatic';
+    Object.assign(nextPayload.sections[key].item, {durationSeconds: 600, workoutTopic: key});
     nextPayload.sections[key].item.url = 'https://www.douyin.com/video/' + (123400 + index);
   }
   await window.__xiaoruiDaily.refresh();
   assert.match(hosts.get('daily-content-status').textContent, /抖音推荐 4\/4/);
-  assert.ok(JSON.stringify(hosts.get('workout-videos')).includes('recovered legs'));
+  assert.ok(JSON.stringify(hosts.get('workout-videos')).includes('recovered office'));
   assert.ok(JSON.stringify(hosts.get('video-body')).includes('https://www.douyin.com/video/123403'));
   nextPayload.sections.video.status = 'empty';
   nextPayload.sections.video.item = null;

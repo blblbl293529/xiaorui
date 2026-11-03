@@ -61,19 +61,19 @@ class DouyinTests(unittest.TestCase):
                  "cover": "javascript:bad", "high_quality_text": "PRIVATE FULL BODY"},
                 {"item_id": "../bad", "title": "invalid", "create_time": 0}]
         with tempfile.TemporaryDirectory() as first, tempfile.TemporaryDirectory() as second:
-            with patch("daily_service.douyin_client.search", return_value=rows), \
+            with patch("daily_service.workouts", return_value=[]), patch("daily_service.douyin_client.search", return_value=rows), \
                     patch("daily_service.photos", return_value=[]), patch("daily_service.articles", return_value=[]):
                 service = DailyService(first, clock=lambda: clock)
                 payload = service.get()
-                item = payload["sections"]["legs"]["item"]
+                item = payload["sections"]["video"]["item"]
                 self.assertEqual(item["url"], "https://www.douyin.com/video/123456789")
                 self.assertEqual(item["imageUrl"], "")
-                self.assertEqual(payload["sections"]["legs"]["mode"], "automatic")
+                self.assertEqual(payload["sections"]["video"]["mode"], "automatic")
                 self.assertEqual(payload["sections"]["glutes"]["status"], "empty")
                 cloud = DailyService(second, clock=lambda: clock + timedelta(days=1))
                 restore_history(cloud, save_history(service))
                 self.assertTrue(all(cloud.get()["sections"][c]["status"] == "empty"
-                                    for c in ("legs", "glutes", "stretch", "video")))
+                                    for c in ("office", "glutes", "stretch", "video")))
                 output = Path(first) / "site"
                 build_site(output, payload)
                 exported = (output / "daily.json").read_text(encoding="utf-8")
@@ -84,12 +84,12 @@ class DouyinTests(unittest.TestCase):
         with tempfile.TemporaryDirectory() as directory:
             service = DailyService(directory)
             restore_history(service, {"selections": [{
-                "channel": "legs", "day": "2026-10-20",
+                "channel": "video", "day": "2026-10-20",
                 "item": {"url": "https://www.bilibili.com/video/BV123456", "title": "old"},
             }]})
-            with patch("daily_service.douyin_client.search", side_effect=DouyinError("secret-must-not-be-logged", 28001018)), \
+            with patch("daily_service.workouts", return_value=[]), patch("daily_service.douyin_client.search", side_effect=DouyinError("secret-must-not-be-logged", 28001018)), \
                     patch("daily_service.photos", return_value=[]), patch("daily_service.articles", return_value=[]):
-                section = service.get()["sections"]["legs"]
+                section = service.get()["sections"]["video"]
             self.assertEqual(section["status"], "error")
             self.assertEqual(section["mode"], "automatic")
             self.assertIsNone(section["item"])

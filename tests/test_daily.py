@@ -65,7 +65,7 @@ class DailyTests(unittest.TestCase):
             self.assertTrue(all(v["status"] == "empty" for v in cloud.get()["sections"].values()))
             self.fail = True
             self.clock += timedelta(minutes=16)
-            stale = cloud.get()["sections"]["legs"]
+            stale = cloud.get()["sections"]["office"]
             self.assertEqual(stale["status"], "stale")
             self.assertEqual(stale["selectedDate"], "2026-10-20")
 
@@ -83,9 +83,9 @@ class DailyTests(unittest.TestCase):
         with tempfile.TemporaryDirectory() as directory:
             service = DailyService(directory, clock=lambda: self.clock)
             restore_history(service, history)
-            with patch.dict(os.environ, {}, clear=True), patch("daily_service.photos", return_value=[]), patch("daily_service.articles", return_value=[]), patch("daily_service.request_bytes") as network:
+            with patch.dict(os.environ, {}, clear=True), patch("daily_service.photos", return_value=[]), patch("daily_service.articles", return_value=[]), patch("daily_service.workouts", return_value=[]), patch("daily_service.request_bytes") as network:
                 payload = service.get()
-                for channel in ("legs", "glutes", "stretch", "video"):
+                for channel in ("video",):
                     section = payload["sections"][channel]
                     self.assertEqual(section["mode"], "external_search")
                     self.assertEqual(section["source"], "抖音")
@@ -101,7 +101,7 @@ class DailyTests(unittest.TestCase):
         self.fail = True
         self.clock += timedelta(days=1)
         second = self.service.get()
-        item = second["sections"]["legs"]
+        item = second["sections"]["office"]
         self.assertEqual(item["status"], "stale")
         self.assertEqual(item["selectedDate"], first["date"])
         events = [json.loads(x) for x in (Path(self.temp.name) / "errors.jsonl").read_text().splitlines()]
@@ -121,10 +121,10 @@ class DailyTests(unittest.TestCase):
     def test_cross_category_dedup_and_tracking_queries(self):
         same = self.item("video")
         same["url"] = "https://www.bilibili.com/video/BV1234567890?spm=foo"
-        self.rows["legs"] = [same]
+        self.rows["office"] = [same]
         self.rows["glutes"] = [dict(same, url=same["url"].replace("foo", "bar"))]
         result = self.service.get()
-        self.assertEqual(result["sections"]["legs"]["status"], "fresh")
+        self.assertEqual(result["sections"]["office"]["status"], "fresh")
         self.assertEqual(result["sections"]["glutes"]["status"], "empty")
         self.assertEqual(canonical_id(same), "bilibili:BV1234567890")
 

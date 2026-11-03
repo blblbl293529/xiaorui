@@ -1,4 +1,4 @@
-const CACHE = 'xiaorui-v12-care-workouts';
+const CACHE = 'xiaorui-v13-short-workouts';
 const ASSETS = [
   './',
   './index.html',

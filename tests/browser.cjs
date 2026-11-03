@@ -14,7 +14,7 @@ async function main() {
   const item = (id) => ({ id, title: `<b>${id}</b>`, url: `https://www.bilibili.com/video/${id}`,
     source: '测试来源', publishedAt: new Date(Date.now() - 3600000).toISOString(), description: '测试说明' });
   let payload = { date, refreshedAt: new Date().toISOString(), sections: Object.fromEntries(
-    ['legs', 'glutes', 'stretch', 'video', 'photo', 'article'].map(key =>
+    ['office', 'glutes', 'stretch', 'video', 'photo', 'article'].map(key =>
       [key, { status: 'fresh', item: item(key), selectedDate: date, message: '' }])) };
   let offline = false;
   await page.route('**/*', async route => {

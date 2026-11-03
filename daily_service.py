@@ -14,17 +14,18 @@ import urllib.error
 import urllib.parse
 import urllib.request
 import xml.etree.ElementTree as ET
+from workouts import SOURCES as WORKOUTS, workouts
 from douyin_source import client as douyin_client
 
 SHANGHAI = timezone(timedelta(hours=8))
-CHANNELS = ("legs", "glutes", "stretch", "video", "photo", "article")
+CHANNELS = ("office", "glutes", "stretch", "video", "photo", "article")
 QUERIES = {
-    "legs": "腿部塑形 跟练",
-    "glutes": "提臀 跟练",
-    "stretch": "拉伸 跟练",
+    "office": "办公室 工位锻炼 10分钟以内",
+    "glutes": "提臀 跟练 10分钟以内",
+    "stretch": "拉伸 跟练 10分钟以内",
     "video": "自然 人文 纪录片",
 }
-MAX_AGES = {"legs": 30, "glutes": 30, "stretch": 30, "video": 14, "photo": 8, "article": 7}
+MAX_AGES = {"office": 30, "glutes": 30, "stretch": 30, "video": 14, "photo": 8, "article": 7}
 
 
 def now():
@@ -165,7 +166,9 @@ def fetch_channel(channel):
         return photos()
     if channel == "article":
         return articles()
-    if channel in ("legs", "glutes", "stretch", "video"):
+    if channel in WORKOUTS:
+        return workouts(channel, request_bytes)
+    if channel == "video":
         rows = douyin_client.search(QUERIES[channel])
         if rows is None:
             return None
@@ -262,6 +265,10 @@ class DailyService:
                         old = json.loads(previous[1])
                         if not re.fullmatch(r"https://www\.douyin\.com/video/\d+", old.get("url", "")):
                             previous = None
+                    if previous and channel in WORKOUTS and self.fetcher is fetch_channel:
+                        old = json.loads(previous[1])
+                        if old.get("workoutTopic") != channel or not 0 < (old.get("durationSeconds") or 0) <= 600 or previous[0] != today:
+                            previous = None
                     if error:
                         sections[channel] = {
                             "status": "stale" if previous else "error",
@@ -269,6 +276,10 @@ class DailyService:
                             "selectedDate": previous[0] if previous else None,
                             "message": "来源暂时无法访问，显示上次内容。" if previous else "来源暂时无法访问，尚未取得新内容。",
                         }
+                        continue
+                    if self.fetcher is fetch_channel and channel in WORKOUTS and previous and previous[0] == today:
+                        sections[channel] = {"status": "fresh", "item": json.loads(previous[1]),
+                                             "selectedDate": today, "message": "今日已选跟练。"}
                         continue
                     valid = []
                     for candidate in candidates:
@@ -278,7 +289,7 @@ class DailyService:
                         url = https_url(candidate.get("url"))
                         identity = canonical_id(candidate)
                         if (not published or not url or not identity or not candidate.get("title")
-                                or published > current or current - published > timedelta(days=MAX_AGES[channel])):
+                                or published > current or (current - published > timedelta(days=MAX_AGES[channel]) and not (channel in WORKOUTS and url == "https://www.douyin.com/video/" + WORKOUTS[channel][1]))):
                             continue
                         candidate = dict(candidate, id=identity, url=url,
                                          imageUrl=https_url(candidate.get("imageUrl")),
