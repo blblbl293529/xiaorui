@@ -294,6 +294,18 @@
       "2026-10-30"
     ],
     [
+      "https://www.douyin.com/video/7474610097071656204",
+      "2026-11-04"
+    ],
+    [
+      "https://www.douyin.com/video/7698512160896694601",
+      "2026-11-04"
+    ],
+    [
+      "https://www.douyin.com/video/7703948619674663921",
+      "2026-11-04"
+    ],
+    [
       "https://www.ted.com/talks/cara_hale_alter_is_your_body_language_working_against_you",
       "2026-10-20"
     ],
@@ -500,6 +512,22 @@
       }
     },
     {
+      "channel": "glutes",
+      "day": "2026-11-04",
+      "item": {
+        "url": "https://www.douyin.com/video/7703948619674663921",
+        "title": "四个臀部训练动作",
+        "source": "抖音",
+        "durationSeconds": 60,
+        "duration": "1:00",
+        "workoutTopic": "glutes",
+        "publishedAt": "2026-11-03T14:15:15+00:00",
+        "description": "精选跟练 · 收录作品，非今日新发布",
+        "imageUrl": "",
+        "id": "https://www.douyin.com/video/7703948619674663921"
+      }
+    },
+    {
       "channel": "legs",
       "day": "2026-10-20",
       "item": {
@@ -511,6 +539,22 @@
         "description": "",
         "imageUrl": "https://i2.hdslb.com/bfs/archive/420a5b76e9630d163c39350204d9f3da25719b23.jpg",
         "duration": "1:3"
+      }
+    },
+    {
+      "channel": "office",
+      "day": "2026-11-04",
+      "item": {
+        "url": "https://www.douyin.com/video/7474610097071656204",
+        "title": "工位练习：坐姿核心动作",
+        "source": "抖音",
+        "durationSeconds": 61,
+        "duration": "1:01",
+        "workoutTopic": "office",
+        "publishedAt": "2025-02-23T13:44:39+00:00",
+        "description": "精选跟练 · 收录作品，非今日新发布",
+        "imageUrl": "",
+        "id": "https://www.douyin.com/video/7474610097071656204"
       }
     },
     {
@@ -733,6 +777,22 @@
         "description": "【强调强调，本期适合瑜伽新手姐妹！】 如果你也是： 长期久坐、长时间对着电脑，脖子、手臂、下半身很容易僵硬紧绷 运动后的身体局部紧张 赶紧来打卡本期坐立全身拉伸瑜伽，如果你没有瑜伽垫也不用担心，今天所有动作都可以席地而坐，直接坐在家里地板上。如果你现在在办公室，同样适用，找一个舒服的位置坐下，我们就可以开始了。 本次拉伸计划了两期内容，这是第一期，如果需要加深练习，别忘记评论区告诉我，第二期是60",
         "imageUrl": "https://i2.hdslb.com/bfs/archive/a63a638c013ce8860a5785f0e8636edd71fc95b8.jpg",
         "duration": "26:45"
+      }
+    },
+    {
+      "channel": "stretch",
+      "day": "2026-11-04",
+      "item": {
+        "url": "https://www.douyin.com/video/7698512160896694601",
+        "title": "Tabata 拉伸跟练",
+        "source": "抖音",
+        "durationSeconds": 327,
+        "duration": "5:27",
+        "workoutTopic": "stretch",
+        "publishedAt": "2026-10-19T22:39:01+00:00",
+        "description": "精选跟练 · 收录作品，非今日新发布",
+        "imageUrl": "",
+        "id": "https://www.douyin.com/video/7698512160896694601"
       }
     },
     {
