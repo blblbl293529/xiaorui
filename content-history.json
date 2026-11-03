@@ -26,6 +26,10 @@
       "2026-11-03"
     ],
     [
+      "bing:OHR.AutumnChina",
+      "2026-11-04"
+    ],
+    [
       "bing:OHR.AutumnCranes",
       "2026-10-30"
     ],
@@ -702,6 +706,19 @@
         "source": "必应每日壁纸",
         "publishedAt": "2026-11-02T16:00:00+00:00",
         "description": "布莱埃斯湖，法内斯-塞内斯-布莱埃斯湖自然公园，多洛米蒂山脉，意大利 (© leonid_tit/Getty Images)"
+      }
+    },
+    {
+      "channel": "photo",
+      "day": "2026-11-04",
+      "item": {
+        "id": "bing:OHR.AutumnChina",
+        "title": "泛舟如画秋林",
+        "url": "https://www.bing.com/search?q=%E8%90%BD%E7%BE%BD%E6%9D%89&form=hpcapt&mkt=zh-cn",
+        "imageUrl": "https://cn.bing.com/th?id=OHR.AutumnChina_ZH-CN7665959692_1920x1080.jpg&rf=LaDigue_1920x1080.jpg&pid=hp",
+        "source": "必应每日壁纸",
+        "publishedAt": "2026-11-03T16:00:00+00:00",
+        "description": "五彩落羽杉间划船的人们，宣城，安徽省，中国 (© Jackal Pan/Getty Images)"
       }
     },
     {
