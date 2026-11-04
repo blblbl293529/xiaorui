@@ -78,6 +78,10 @@
       "2026-10-26"
     ],
     [
+      "bing:OHR.StileCrossing",
+      "2026-11-05"
+    ],
+    [
       "bing:OHR.VietnamBridge",
       "2026-10-21"
     ],
@@ -792,6 +796,19 @@
         "source": "必应每日壁纸",
         "publishedAt": "2026-11-03T16:00:00+00:00",
         "description": "五彩落羽杉间划船的人们，宣城，安徽省，中国 (© Jackal Pan/Getty Images)"
+      }
+    },
+    {
+      "channel": "photo",
+      "day": "2026-11-05",
+      "item": {
+        "id": "bing:OHR.StileCrossing",
+        "title": "向山巅再迈一步",
+        "url": "https://www.bing.com/search?q=%E8%8B%B1%E6%A0%BC%E5%85%B0%E6%B9%96%E5%8C%BA&form=hpcapt&mkt=zh-cn",
+        "imageUrl": "https://cn.bing.com/th?id=OHR.StileCrossing_ZH-CN9811465935_1920x1080.jpg&rf=LaDigue_1920x1080.jpg&pid=hp",
+        "source": "必应每日壁纸",
+        "publishedAt": "2026-11-04T16:00:00+00:00",
+        "description": "石墙边的木制翻越梯，黑岩，湖区，英格兰 (© Alex Treadway/Getty Images)"
       }
     },
     {
