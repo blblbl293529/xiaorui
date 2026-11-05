@@ -62,6 +62,10 @@
       "2026-10-22"
     ],
     [
+      "bing:OHR.PipiwaiTrail",
+      "2026-11-06"
+    ],
+    [
       "bing:OHR.PondCypress",
       "2026-10-27"
     ],
@@ -842,6 +846,19 @@
         "source": "必应每日壁纸",
         "publishedAt": "2026-11-04T16:00:00+00:00",
         "description": "石墙边的木制翻越梯，黑岩，湖区，英格兰 (© Alex Treadway/Getty Images)"
+      }
+    },
+    {
+      "channel": "photo",
+      "day": "2026-11-06",
+      "item": {
+        "id": "bing:OHR.PipiwaiTrail",
+        "title": "穿越毛伊岛的绿色隧道",
+        "url": "https://www.bing.com/search?q=%E5%93%88%E8%8E%B1%E4%BA%9A%E5%8D%A1%E6%8B%89%E5%9B%BD%E5%AE%B6%E5%85%AC%E5%9B%AD&form=hpcapt&mkt=zh-cn",
+        "imageUrl": "https://cn.bing.com/th?id=OHR.PipiwaiTrail_ZH-CN1811194311_1920x1080.jpg&rf=LaDigue_1920x1080.jpg&pid=hp",
+        "source": "必应每日壁纸",
+        "publishedAt": "2026-11-05T16:00:00+00:00",
+        "description": "竹林，皮皮维小径，哈莱亚卡拉国家公园，毛伊岛，夏威夷州，美国 (© MNStudio/Getty Images)"
       }
     },
     {
