@@ -302,6 +302,10 @@
       "2026-11-04"
     ],
     [
+      "https://sspai.com/post/118498",
+      "2026-11-05"
+    ],
+    [
       "https://sspai.com/prime/story/how-to-analyze-health-data-with-agent",
       "2026-10-29"
     ],
@@ -526,6 +530,19 @@
         "url": "https://sspai.com/post/117713",
         "source": "少数派",
         "publishedAt": "2026-11-04T20:25:55+08:00",
+        "description": "来自少数派的最新文章，点击前往来源阅读全文。",
+        "imageUrl": ""
+      }
+    },
+    {
+      "channel": "article",
+      "day": "2026-11-05",
+      "item": {
+        "id": "https://sspai.com/post/118498",
+        "title": "派早报：腾讯发布混元 Hy4 正式版，Google 调整 K-12 教育 AI 政策等",
+        "url": "https://sspai.com/post/118498",
+        "source": "少数派",
+        "publishedAt": "2026-11-05T08:16:27+08:00",
         "description": "来自少数派的最新文章，点击前往来源阅读全文。",
         "imageUrl": ""
       }
