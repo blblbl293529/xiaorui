@@ -42,6 +42,10 @@
       "2026-10-20"
     ],
     [
+      "bing:OHR.DakotaBison",
+      "2026-11-07"
+    ],
+    [
       "bing:OHR.FrankfurtHalloween",
       "2026-10-31"
     ],
@@ -888,6 +892,19 @@
         "source": "必应每日壁纸",
         "publishedAt": "2026-11-05T16:00:00+00:00",
         "description": "竹林，皮皮维小径，哈莱亚卡拉国家公园，毛伊岛，夏威夷州，美国 (© MNStudio/Getty Images)"
+      }
+    },
+    {
+      "channel": "photo",
+      "day": "2026-11-07",
+      "item": {
+        "id": "bing:OHR.DakotaBison",
+        "title": "归来的草原巨兽",
+        "url": "https://www.bing.com/search?q=%E7%BE%8E%E6%B4%B2%E9%87%8E%E7%89%9B&form=hpcapt&mkt=zh-cn",
+        "imageUrl": "https://cn.bing.com/th?id=OHR.DakotaBison_ZH-CN2302503868_1920x1080.jpg&rf=LaDigue_1920x1080.jpg&pid=hp",
+        "source": "必应每日壁纸",
+        "publishedAt": "2026-11-06T16:00:00+00:00",
+        "description": "草原上的一头野牛，西奥多·罗斯福国家公园，北达科他州，美国 (© Tandem Stock/Adobe Stock)"
       }
     },
     {
