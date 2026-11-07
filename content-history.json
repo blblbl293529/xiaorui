@@ -174,6 +174,10 @@
       "2026-10-29"
     ],
     [
+      "https://sspai.com/post/116750",
+      "2026-11-07"
+    ],
+    [
       "https://sspai.com/post/116820",
       "2026-10-21"
     ],
@@ -596,6 +600,19 @@
         "url": "https://sspai.com/post/118623",
         "source": "少数派",
         "publishedAt": "2026-11-06T17:30:15+08:00",
+        "description": "来自少数派的最新文章，点击前往来源阅读全文。",
+        "imageUrl": ""
+      }
+    },
+    {
+      "channel": "article",
+      "day": "2026-11-07",
+      "item": {
+        "id": "https://sspai.com/post/116750",
+        "title": "一个 05 后的个人数码编年史",
+        "url": "https://sspai.com/post/116750",
+        "source": "少数派",
+        "publishedAt": "2026-11-07T17:05:06+08:00",
         "description": "来自少数派的最新文章，点击前往来源阅读全文。",
         "imageUrl": ""
       }
