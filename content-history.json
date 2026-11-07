@@ -46,6 +46,10 @@
       "2026-11-07"
     ],
     [
+      "bing:OHR.DiwaliLamps",
+      "2026-11-08"
+    ],
+    [
       "bing:OHR.FrankfurtHalloween",
       "2026-10-31"
     ],
@@ -922,6 +926,19 @@
         "source": "必应每日壁纸",
         "publishedAt": "2026-11-06T16:00:00+00:00",
         "description": "草原上的一头野牛，西奥多·罗斯福国家公园，北达科他州，美国 (© Tandem Stock/Adobe Stock)"
+      }
+    },
+    {
+      "channel": "photo",
+      "day": "2026-11-08",
+      "item": {
+        "id": "bing:OHR.DiwaliLamps",
+        "title": "光芒四射的节日",
+        "url": "https://www.bing.com/search?q=%E6%8E%92%E7%81%AF%E8%8A%82&form=hpcapt&mkt=zh-cn",
+        "imageUrl": "https://cn.bing.com/th?id=OHR.DiwaliLamps_ZH-CN2462894749_1920x1080.jpg&rf=LaDigue_1920x1080.jpg&pid=hp",
+        "source": "必应每日壁纸",
+        "publishedAt": "2026-11-07T16:00:00+00:00",
+        "description": "排灯节灯笼，孟买，马哈拉施特拉邦，印度 (© Dinodia Photo/Getty Images)"
       }
     },
     {
