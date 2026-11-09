@@ -82,6 +82,10 @@
       "2026-10-24"
     ],
     [
+      "bing:OHR.RoseIsland",
+      "2026-11-10"
+    ],
+    [
       "bing:OHR.SchwarzwaldAutumn",
       "2026-11-01"
     ],
@@ -308,6 +312,10 @@
     [
       "https://sspai.com/post/118211",
       "2026-11-03"
+    ],
+    [
+      "https://sspai.com/post/118227",
+      "2026-11-10"
     ],
     [
       "https://sspai.com/post/118232",
@@ -676,6 +684,19 @@
       }
     },
     {
+      "channel": "article",
+      "day": "2026-11-10",
+      "item": {
+        "id": "https://sspai.com/post/118227",
+        "title": "一家人的客厅，和一个人的深夜 — Sonos Beam Ultra 与 Ace Ultra 体验",
+        "url": "https://sspai.com/post/118227",
+        "source": "少数派",
+        "publishedAt": "2026-11-09T15:40:22+08:00",
+        "description": "来自少数派的最新文章，点击前往来源阅读全文。",
+        "imageUrl": ""
+      }
+    },
+    {
       "channel": "glutes",
       "day": "2026-10-20",
       "item": {
@@ -1006,6 +1027,19 @@
         "source": "必应每日壁纸",
         "publishedAt": "2026-11-08T16:00:00+00:00",
         "description": "特里亚纳历史街区，塞维利亚，西班牙 (© Andrzej Rostek/Getty Images)"
+      }
+    },
+    {
+      "channel": "photo",
+      "day": "2026-11-10",
+      "item": {
+        "id": "bing:OHR.RoseIsland",
+        "title": "惬意放松，尽享海岛时光",
+        "url": "https://www.bing.com/search?q=%E5%B7%B4%E5%93%88%E9%A9%AC%E7%8E%AB%E7%91%B0%E5%B2%9B&form=hpcapt&mkt=zh-cn",
+        "imageUrl": "https://cn.bing.com/th?id=OHR.RoseIsland_ZH-CN6477140814_1920x1080.jpg&rf=LaDigue_1920x1080.jpg&pid=hp",
+        "source": "必应每日壁纸",
+        "publishedAt": "2026-11-09T16:00:00+00:00",
+        "description": "玫瑰岛航拍图，巴哈马 (© Abstract Aerial Art/Getty Images)"
       }
     },
     {
