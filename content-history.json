@@ -74,6 +74,10 @@
       "2026-10-22"
     ],
     [
+      "bing:OHR.NorthWindow",
+      "2026-11-12"
+    ],
+    [
       "bing:OHR.PipiwaiTrail",
       "2026-11-06"
     ],
@@ -1102,6 +1106,19 @@
         "source": "必应每日壁纸",
         "publishedAt": "2026-11-10T16:00:00+00:00",
         "description": "大西洋森林，巴西 (© FG Trade/Getty Images)"
+      }
+    },
+    {
+      "channel": "photo",
+      "day": "2026-11-12",
+      "item": {
+        "id": "bing:OHR.NorthWindow",
+        "title": "没有建筑师的建筑杰作",
+        "url": "https://www.bing.com/search?q=%E6%8B%B1%E9%97%A8%E5%9B%BD%E5%AE%B6%E5%85%AC%E5%9B%AD&form=hpcapt&mkt=zh-cn",
+        "imageUrl": "https://cn.bing.com/th?id=OHR.NorthWindow_ZH-CN6734579353_1920x1080.jpg&rf=LaDigue_1920x1080.jpg&pid=hp",
+        "source": "必应每日壁纸",
+        "publishedAt": "2026-11-11T16:00:00+00:00",
+        "description": "北窗，拱门国家公园，莫阿布，犹他州，美国 (© lightphoto/Getty Images)"
       }
     },
     {
