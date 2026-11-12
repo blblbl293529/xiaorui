@@ -22,6 +22,10 @@
       "2026-10-20"
     ],
     [
+      "bing:OHR.AbrahamCanada",
+      "2026-11-13"
+    ],
+    [
       "bing:OHR.AlpineBraies",
       "2026-11-03"
     ],
@@ -1148,6 +1152,19 @@
         "source": "必应每日壁纸",
         "publishedAt": "2026-11-11T16:00:00+00:00",
         "description": "北窗，拱门国家公园，莫阿布，犹他州，美国 (© lightphoto/Getty Images)"
+      }
+    },
+    {
+      "channel": "photo",
+      "day": "2026-11-13",
+      "item": {
+        "id": "bing:OHR.AbrahamCanada",
+        "title": "冰下秘境",
+        "url": "https://www.bing.com/search?q=%E8%89%BE%E4%BC%AF%E5%A1%94%E7%9C%81%E4%BA%9A%E4%BC%AF%E6%8B%89%E7%BD%95%E6%B9%96&form=hpcapt&mkt=zh-cn",
+        "imageUrl": "https://cn.bing.com/th?id=OHR.AbrahamCanada_ZH-CN0344365912_1920x1080.jpg&rf=LaDigue_1920x1080.jpg&pid=hp",
+        "source": "必应每日壁纸",
+        "publishedAt": "2026-11-12T16:00:00+00:00",
+        "description": "亚伯拉罕湖，艾伯塔省，加拿大 (© Guang Cao/Getty Images)"
       }
     },
     {
