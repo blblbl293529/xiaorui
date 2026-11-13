@@ -442,6 +442,10 @@
       "2026-11-12"
     ],
     [
+      "https://sspai.com/post/118966",
+      "2026-11-13"
+    ],
+    [
       "https://sspai.com/post/85735",
       "2026-11-12"
     ],
@@ -778,6 +782,19 @@
         "url": "https://sspai.com/post/118366",
         "source": "少数派",
         "publishedAt": "2026-11-12T16:37:25+08:00",
+        "description": "来自少数派的最新文章，点击前往来源阅读全文。",
+        "imageUrl": ""
+      }
+    },
+    {
+      "channel": "article",
+      "day": "2026-11-13",
+      "item": {
+        "id": "https://sspai.com/post/118966",
+        "title": "派早报：英伟达 CEO 黄仁勋宣布辞职等",
+        "url": "https://sspai.com/post/118966",
+        "source": "少数派",
+        "publishedAt": "2026-11-13T08:48:17+08:00",
         "description": "来自少数派的最新文章，点击前往来源阅读全文。",
         "imageUrl": ""
       }
