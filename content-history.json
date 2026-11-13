@@ -378,6 +378,10 @@
       "2026-11-05"
     ],
     [
+      "https://sspai.com/post/118512",
+      "2026-11-13"
+    ],
+    [
       "https://sspai.com/post/118541",
       "2026-11-05"
     ],
@@ -790,11 +794,11 @@
       "channel": "article",
       "day": "2026-11-13",
       "item": {
-        "id": "https://sspai.com/post/118966",
-        "title": "派早报：英伟达 CEO 黄仁勋宣布辞职等",
-        "url": "https://sspai.com/post/118966",
+        "id": "https://sspai.com/post/118512",
+        "title": "在快 AI 时代，我是怎么把 Mole 做成一款「慢产品」的？",
+        "url": "https://sspai.com/post/118512",
         "source": "少数派",
-        "publishedAt": "2026-11-13T08:48:17+08:00",
+        "publishedAt": "2026-11-13T11:35:48+08:00",
         "description": "来自少数派的最新文章，点击前往来源阅读全文。",
         "imageUrl": ""
       }
