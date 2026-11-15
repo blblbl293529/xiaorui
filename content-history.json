@@ -378,6 +378,10 @@
       "2026-11-12"
     ],
     [
+      "https://sspai.com/post/118392",
+      "2026-11-15"
+    ],
+    [
       "https://sspai.com/post/118402",
       "2026-11-04"
     ],
@@ -832,6 +836,19 @@
         "url": "https://sspai.com/post/118276",
         "source": "少数派",
         "publishedAt": "2026-11-14T15:40:21+08:00",
+        "description": "来自少数派的最新文章，点击前往来源阅读全文。",
+        "imageUrl": ""
+      }
+    },
+    {
+      "channel": "article",
+      "day": "2026-11-15",
+      "item": {
+        "id": "https://sspai.com/post/118392",
+        "title": "Aerial Switcher：给 Mac 的航拍壁纸排个时间表",
+        "url": "https://sspai.com/post/118392",
+        "source": "少数派",
+        "publishedAt": "2026-11-15T15:55:16+08:00",
         "description": "来自少数派的最新文章，点击前往来源阅读全文。",
         "imageUrl": ""
       }
