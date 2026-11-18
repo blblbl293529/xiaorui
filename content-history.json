@@ -82,6 +82,10 @@
       "2026-11-02"
     ],
     [
+      "bing:OHR.KnowledgeSculpture",
+      "2026-11-19"
+    ],
+    [
       "bing:OHR.KuneticeCastle",
       "2026-10-28"
     ],
@@ -492,6 +496,10 @@
     [
       "https://sspai.com/post/118966",
       "2026-11-13"
+    ],
+    [
+      "https://sspai.com/post/118975",
+      "2026-11-19"
     ],
     [
       "https://sspai.com/post/118976",
@@ -953,6 +961,19 @@
       }
     },
     {
+      "channel": "article",
+      "day": "2026-11-19",
+      "item": {
+        "id": "https://sspai.com/post/118975",
+        "title": "兼顾随身阅读与自主开发的 4.7 英寸墨水屏设备：小纸 Pico 现货上架少数派",
+        "url": "https://sspai.com/post/118975",
+        "source": "少数派",
+        "publishedAt": "2026-11-18T10:30:00+08:00",
+        "description": "来自少数派的最新文章，点击前往来源阅读全文。",
+        "imageUrl": ""
+      }
+    },
+    {
       "channel": "glutes",
       "day": "2026-10-20",
       "item": {
@@ -1400,6 +1421,19 @@
         "source": "必应每日壁纸",
         "publishedAt": "2026-11-17T16:00:00+00:00",
         "description": "一对仓鸮 (© Zahoor Salmi/Getty Images)"
+      }
+    },
+    {
+      "channel": "photo",
+      "day": "2026-11-19",
+      "item": {
+        "id": "bing:OHR.KnowledgeSculpture",
+        "title": "思想在此成形",
+        "url": "https://www.bing.com/search?q=%E4%B8%96%E7%95%8C%E5%93%B2%E5%AD%A6%E6%97%A5&form=hpcapt&mkt=zh-cn",
+        "imageUrl": "https://cn.bing.com/th?id=OHR.KnowledgeSculpture_ZH-CN3168800853_1920x1080.jpg&rf=LaDigue_1920x1080.jpg&pid=hp",
+        "source": "必应每日壁纸",
+        "publishedAt": "2026-11-18T16:00:00+00:00",
+        "description": "雕塑《知识之躯》，由豪梅·普兰萨创作，位于德国法兰克福的法兰克福歌德大学 (© Todamo/Shutterstock)"
       }
     },
     {
