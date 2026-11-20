@@ -118,6 +118,10 @@
       "2026-10-24"
     ],
     [
+      "bing:OHR.RedNice",
+      "2026-11-21"
+    ],
+    [
       "bing:OHR.RoseIsland",
       "2026-11-10"
     ],
@@ -1500,6 +1504,19 @@
         "source": "必应每日壁纸",
         "publishedAt": "2026-11-19T16:00:00+00:00",
         "description": "正在潜水的座头鲸，挪威北部特罗姆斯的克瓦尔岛 (© Espen Bergersen/Minden Pictures)"
+      }
+    },
+    {
+      "channel": "photo",
+      "day": "2026-11-21",
+      "item": {
+        "id": "bing:OHR.RedNice",
+        "title": "陶瓦屋顶下的梦",
+        "url": "https://www.bing.com/search?q=%E6%B3%95%E5%9B%BD%E5%B0%BC%E6%96%AF&form=hpcapt&mkt=zh-cn",
+        "imageUrl": "https://cn.bing.com/th?id=OHR.RedNice_ZH-CN3518429866_1920x1080.jpg&rf=LaDigue_1920x1080.jpg&pid=hp",
+        "source": "必应每日壁纸",
+        "publishedAt": "2026-11-20T16:00:00+00:00",
+        "description": "法国普罗旺斯-阿尔卑斯-蔚蓝海岸大区尼斯 (© Siripong Kaewla-iad/Getty Images)"
       }
     },
     {
