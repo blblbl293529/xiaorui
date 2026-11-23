@@ -58,6 +58,10 @@
       "2026-10-20"
     ],
     [
+      "bing:OHR.CairngormsSquirrel",
+      "2026-11-24"
+    ],
+    [
       "bing:OHR.DakotaBison",
       "2026-11-07"
     ],
@@ -634,6 +638,10 @@
       "2026-11-20"
     ],
     [
+      "https://sspai.com/prime/story/weird-phones-are-returning",
+      "2026-11-24"
+    ],
+    [
       "https://sspai.com/prime/story/zhuanglesha-261030",
       "2026-10-30"
     ],
@@ -1097,6 +1105,19 @@
         "url": "https://sspai.com/post/119438",
         "source": "少数派",
         "publishedAt": "2026-11-23T18:08:29+08:00",
+        "description": "来自少数派的最新文章，点击前往来源阅读全文。",
+        "imageUrl": ""
+      }
+    },
+    {
+      "channel": "article",
+      "day": "2026-11-24",
+      "item": {
+        "id": "https://sspai.com/prime/story/weird-phones-are-returning",
+        "title": "怪手机们要回来了吗？",
+        "url": "https://sspai.com/prime/story/weird-phones-are-returning",
+        "source": "少数派",
+        "publishedAt": "2026-11-23T18:00:30+08:00",
         "description": "来自少数派的最新文章，点击前往来源阅读全文。",
         "imageUrl": ""
       }
@@ -1614,6 +1635,19 @@
         "source": "必应每日壁纸",
         "publishedAt": "2026-11-22T16:00:00+00:00",
         "description": "蕨类植物的卷曲嫩叶 (© Reza Saputra/Getty Images)"
+      }
+    },
+    {
+      "channel": "photo",
+      "day": "2026-11-24",
+      "item": {
+        "id": "bing:OHR.CairngormsSquirrel",
+        "title": "秋日的保护色",
+        "url": "https://www.bing.com/search?q=%E6%AC%A7%E4%BA%9A%E7%BA%A2%E6%9D%BE%E9%BC%A0&form=hpcapt&mkt=zh-cn",
+        "imageUrl": "https://cn.bing.com/th?id=OHR.CairngormsSquirrel_ZH-CN0941302869_1920x1080.jpg&rf=LaDigue_1920x1080.jpg&pid=hp",
+        "source": "必应每日壁纸",
+        "publishedAt": "2026-11-23T16:00:00+00:00",
+        "description": "红松鼠，凯恩戈姆斯国家公园，苏格兰高地 (© Scotland: The Big Picture/Minden Pictures)"
       }
     },
     {
