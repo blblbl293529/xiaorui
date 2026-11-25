@@ -130,6 +130,10 @@
       "2026-10-24"
     ],
     [
+      "bing:OHR.RFHilo",
+      "2026-11-26"
+    ],
+    [
       "bing:OHR.RedNice",
       "2026-11-21"
     ],
@@ -1710,6 +1714,19 @@
         "source": "必应每日壁纸",
         "publishedAt": "2026-11-24T16:00:00+00:00",
         "description": "日落观景点，布莱斯峡谷国家公园，犹他州 (© Colin D. Young/Alamy)"
+      }
+    },
+    {
+      "channel": "photo",
+      "day": "2026-11-26",
+      "item": {
+        "id": "bing:OHR.RFHilo",
+        "title": "彩虹落下的地方",
+        "url": "https://www.bing.com/search?q=%E5%A4%8F%E5%A8%81%E5%A4%B7%E5%B7%9E%E6%80%80%E5%8D%A2%E5%BA%93%E6%B2%B3%E7%9A%84%E5%BD%A9%E8%99%B9%E7%80%91%E5%B8%83&form=hpcapt&mkt=zh-cn",
+        "imageUrl": "https://cn.bing.com/th?id=OHR.RFHilo_ZH-CN5962114314_1920x1080.jpg&rf=LaDigue_1920x1080.jpg&pid=hp",
+        "source": "必应每日壁纸",
+        "publishedAt": "2026-11-25T16:00:00+00:00",
+        "description": "怀卢库河上的彩虹瀑布，希洛市，夏威夷州，美国 (© Peter Unger/Getty Images)"
       }
     },
     {
