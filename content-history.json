@@ -638,6 +638,10 @@
       "2026-11-24"
     ],
     [
+      "https://sspai.com/post/119527",
+      "2026-11-25"
+    ],
+    [
       "https://sspai.com/post/85735",
       "2026-11-12"
     ],
@@ -1138,6 +1142,19 @@
         "url": "https://sspai.com/post/119492",
         "source": "少数派",
         "publishedAt": "2026-11-24T17:14:11+08:00",
+        "description": "来自少数派的最新文章，点击前往来源阅读全文。",
+        "imageUrl": ""
+      }
+    },
+    {
+      "channel": "article",
+      "day": "2026-11-25",
+      "item": {
+        "id": "https://sspai.com/post/119527",
+        "title": "派早报：华为发布 Mate X8 与 MateBook Fold S、微软将推出自研驱动等",
+        "url": "https://sspai.com/post/119527",
+        "source": "少数派",
+        "publishedAt": "2026-11-25T08:22:35+08:00",
         "description": "来自少数派的最新文章，点击前往来源阅读全文。",
         "imageUrl": ""
       }
