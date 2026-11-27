@@ -678,6 +678,10 @@
       "2026-11-26"
     ],
     [
+      "https://sspai.com/post/119601",
+      "2026-11-27"
+    ],
+    [
       "https://sspai.com/post/119632",
       "2026-11-27"
     ],
@@ -1216,11 +1220,11 @@
       "channel": "article",
       "day": "2026-11-27",
       "item": {
-        "id": "https://sspai.com/post/119632",
-        "title": "派早报：1Password 确认内部系统遭入侵等",
-        "url": "https://sspai.com/post/119632",
+        "id": "https://sspai.com/post/119601",
+        "title": "「黑五」值得买：不容错过的 App 和服务优惠",
+        "url": "https://sspai.com/post/119601",
         "source": "少数派",
-        "publishedAt": "2026-11-27T08:27:38+08:00",
+        "publishedAt": "2026-11-27T11:48:17+08:00",
         "description": "来自少数派的最新文章，点击前往来源阅读全文。",
         "imageUrl": ""
       }
