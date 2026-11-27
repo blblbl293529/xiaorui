@@ -174,6 +174,10 @@
       "2026-10-21"
     ],
     [
+      "bing:OHR.VltavaPrague",
+      "2026-11-28"
+    ],
+    [
       "bing:OHR.YellowstoneWolves",
       "2026-10-23"
     ],
@@ -1798,6 +1802,19 @@
         "source": "必应每日壁纸",
         "publishedAt": "2026-11-26T16:00:00+00:00",
         "description": "夕阳下的孤峰，鲍威尔湖脸峡谷，犹他州，美国 (© Jeff Foott/Minden)"
+      }
+    },
+    {
+      "channel": "photo",
+      "day": "2026-11-28",
+      "item": {
+        "id": "bing:OHR.VltavaPrague",
+        "title": "跨越时光的桥梁",
+        "url": "https://www.bing.com/search?q=%E5%B8%83%E6%8B%89%E6%A0%BC%E7%9A%84%E6%A1%A5%E6%A2%81&form=hpcapt&mkt=zh-cn",
+        "imageUrl": "https://cn.bing.com/th?id=OHR.VltavaPrague_ZH-CN9898139716_1920x1080.jpg&rf=LaDigue_1920x1080.jpg&pid=hp",
+        "source": "必应每日壁纸",
+        "publishedAt": "2026-11-27T16:00:00+00:00",
+        "description": "捷克布拉格老城区与伏尔塔瓦河 (© Lara_Uhryn/Getty Images)"
       }
     },
     {
